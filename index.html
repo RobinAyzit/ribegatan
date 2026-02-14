@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="sv">
 
 <head>
@@ -286,6 +286,28 @@
             border-radius: var(--radius-md);
             font-size: 0.88rem;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .menu-indicator {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover .menu-indicator {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        /* Desktop: Hide indicator on top-level if we don't want it there, 
+           but based on user request "arrows in menu" it's usually for all with submenus */
+        @media (min-width: 769px) {
+            .dropdown-submenu .menu-indicator {
+                margin-left: auto;
+            }
         }
 
         .nav-link:hover {
@@ -361,7 +383,9 @@
             color: var(--gray-700);
             padding: var(--space-sm) var(--space-md);
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: all 0.3s ease;
             font-size: 0.95rem;
             border-radius: var(--radius-md);
@@ -431,7 +455,9 @@
             color: var(--gray-700);
             padding: var(--space-sm) var(--space-md);
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: all 0.3s ease;
             font-size: 0.9rem;
             border-radius: var(--radius-md);
@@ -2042,13 +2068,13 @@
                 </li>
                 <li class="nav-item dropdown">
                     <div class="nav-link-wrapper">
-                        <a href="#samfalligheten" class="nav-link">Samfälligheten</a>
+                        <a href="#samfalligheten" class="nav-link">Samfälligheten <i class="fas fa-chevron-right menu-indicator"></i></a>
                         <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="dropdown-content">
                         <div class="dropdown-submenu">
                             <div class="nav-link-wrapper">
-                                <a href="#agarbyte">Ägarbyte/Ägarförändring</a>
+                                <a href="#agarbyte">Ägarbyte/Ägarförändring <i class="fas fa-chevron-right menu-indicator"></i></a>
                                 <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                             </div>
                             <div class="dropdown-submenu-content">
@@ -2058,7 +2084,7 @@
                         </div>
                         <div class="dropdown-submenu">
                             <div class="nav-link-wrapper">
-                                <a href="#foreningen">Föreningen</a>
+                                <a href="#foreningen">Föreningen <i class="fas fa-chevron-right menu-indicator"></i></a>
                                 <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                             </div>
                             <div class="dropdown-submenu-content">
@@ -2080,7 +2106,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <div class="nav-link-wrapper">
-                        <a href="#husen" class="nav-link">Husen</a>
+                        <a href="#husen" class="nav-link">Husen <i class="fas fa-chevron-right menu-indicator"></i></a>
                         <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="dropdown-content">
@@ -2099,7 +2125,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <div class="nav-link-wrapper">
-                        <a href="#omradet" class="nav-link">Området</a>
+                        <a href="#omradet" class="nav-link">Området <i class="fas fa-chevron-right menu-indicator"></i></a>
                         <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="dropdown-content">
@@ -2115,7 +2141,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <div class="nav-link-wrapper">
-                        <a href="#bilder" class="nav-link">Bilder & Historia</a>
+                        <a href="#bilder" class="nav-link">Bilder & Historia <i class="fas fa-chevron-right menu-indicator"></i></a>
                         <span class="dropdown-toggle"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="dropdown-content">
