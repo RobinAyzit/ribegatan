@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="Sitoo Web (www.sitoo.com)" />
+		<title>Bygglov</title>
+		<link rel="stylesheet" type="text/css" href="css/swglobal.css" />
+		<link rel="stylesheet" type="text/css" href="css/swStandard.css" />
+	<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+	function SFGetRef(str)
+	{
+		return document.all ? document.all[str] : document.getElementById(str);
+	}
+
+	function SFSwitchImage(strID, strFileName)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+
+	function SFSendForm(strID)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		var str = obj.value;
+		if(str.length > 0) {
+			location.href = "Soekresultat.html?r=" + parseInt(Math.random() * 10000) + "&words=" + encodeURIComponent(str) + "#" + encodeURIComponent(str);
+		}
+	}
+//]]>
+</script>
+	<script type="text/javascript">
+//<![CDATA[
+	function SitooOnLoad() {
+	{
+		var strWords = "";
+		if(typeof(SYS_SearchResultsGetWords) + "" != "undefined") {
+			strWords = SYS_SearchResultsGetWords();
+		} else {
+			strWords = decodeURIComponent(location.hash + "");
+			if(strWords.length > 1) strWords = strWords.substr(1);
+		}
+		var obj = SFGetRef("SF1_input");
+		if(typeof(obj) + "" != "undefined") {
+			obj.value = strWords;
+		}
+	}
+
+	}
+//]]>
+</script>
+</head>
+	<body style="background-image:url(res/Standard/bakgrund-3.gif);" onload="SitooOnLoad();">
+		<div style="background-color:#ffffff;background-image:url(res/Standard/filler1.png);display:block;float:none;height:110px;margin-top:0;margin-right:auto;margin-left:auto;width:950px;">
+			<div style="height:10px;">
+			</div><a href="Vaelkommen.html"></a><a href="index.html"><img src="res/Standard/ribehead.png" title="ribehead.png" alt="ribehead.png" style="display:block;float:none;margin-right:auto;margin-left:auto;" /></a> 
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID90A19F9933E448E9BA68B1B9A88BFE95">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+		<td id="MH1_0"><a href="index.html" onmouseover="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt.png&#39;);"><img id="MH1_0_img" src="img/gre/Knapp-1-Aktuellt.png" alt="Aktuellt" style="border:none;display:block;" /></a></td>
+		<td id="MH1_1"><a href="Vaelkommen.html" onmouseover="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen.png&#39;);"><img id="MH1_1_img" src="img/gre/Knapp-1-Vaelkommen.png" alt="V&auml;lkommen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_2"><a href="Samfaelligheten.html" onmouseover="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten.png&#39;);"><img id="MH1_2_img" src="img/gre/Knapp-1-Samfaelligheten.png" alt="Samf&auml;lligheten" style="border:none;display:block;" /></a></td>
+		<td id="MH1_3"><a href="Kalendarium.html" onmouseover="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium.png&#39;);"><img id="MH1_3_img" src="img/gre/Knapp-1-Kalendarium.png" alt="Kalendarium" style="border:none;display:block;" /></a></td>
+		<td id="MH1_4"><a href="Husen.html" onmouseover="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen_2.png&#39;);"><img id="MH1_4_img" src="img/gre/Knapp-1-Husen_2.png" alt="Husen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_5"><a href="Indelning.html" onmouseover="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet.png&#39;);"><img id="MH1_5_img" src="img/gre/Knapp-1-Omraadet.png" alt="Omr&aring;det" style="border:none;display:block;" /></a></td>
+		<td id="MH1_6"><a href="Bilder-Historia.html" onmouseover="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia.png&#39;);"><img id="MH1_6_img" src="img/gre/Knapp-1-Bilder-Historia.png" alt="Bilder &amp; Historia" style="border:none;display:block;" /></a></td>
+		<td id="MH1_7"><a href="Laenkar.html" onmouseover="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar.png&#39;);"><img id="MH1_7_img" src="img/gre/Knapp-1-Laenkar.png" alt="L&auml;nkar" style="border:none;display:block;" /></a></td>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID70A0A6BABBB1496BB39E109077EDEA53">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="MH2_0"><a href="Foenster.html" onmouseover="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-Foenster_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-Foenster.png&#39;);"><img id="MH2_0_img" src="img/gre/Knapp-2-Foenster.png" alt="F&ouml;nster" style="border:none;display:block;" /></a></td>
+		<td id="MH2_1"><a href="Panel.html" onmouseover="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Panel_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Panel.png&#39;);"><img id="MH2_1_img" src="img/gre/Knapp-2-Panel.png" alt="Panel" style="border:none;display:block;" /></a></td>
+		<td id="MH2_2"><a href="Faerg.html" onmouseover="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Faerg_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Faerg.png&#39;);"><img id="MH2_2_img" src="img/gre/Knapp-2-Faerg.png" alt="F&auml;rg" style="border:none;display:block;" /></a></td>
+		<td id="MH2_3"><a href="Vaerme-vatten.html" onmouseover="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Vaerme-vatten_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Vaerme-vatten.png&#39;);"><img id="MH2_3_img" src="img/gre/Knapp-2-Vaerme-vatten.png" alt="V&auml;rme &amp; vatten" style="border:none;display:block;" /></a></td>
+		<td id="MH2_4"><a href="Termostat.html" onmouseover="MHSwitchImage(&#39;MH2_4_img&#39;, &#39;img/gre/Knapp-2-Termostat_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_4_img&#39;, &#39;img/gre/Knapp-2-Termostat.png&#39;);"><img id="MH2_4_img" src="img/gre/Knapp-2-Termostat.png" alt="Termostat" style="border:none;display:block;" /></a></td>
+		<td id="MH2_5"><a href="Krypgrund.html" onmouseover="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Krypgrund_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Krypgrund.png&#39;);"><img id="MH2_5_img" src="img/gre/Knapp-2-Krypgrund.png" alt="Krypgrund" style="border:none;display:block;" /></a></td>
+		<td id="MH2_6"><img id="MH2_6_img" src="img/gre/Knapp-2-Bygglov_2.png" alt="Bygglov" style="border:none;display:block;" /></td>
+		<td id="MH2_7"><a href="Takflaekt.html" onmouseover="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Takflaekt_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Takflaekt.png&#39;);"><img id="MH2_7_img" src="img/gre/Knapp-2-Takflaekt.png" alt="Takfl&auml;kt" style="border:none;display:block;" /></a></td>
+		<td style="width:100%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID8CC5F0E929E142BC8DA7431217F2C63F"></div>
+		</div>
+		<div style="background-color:#e4f0ef;background-image:url(res/Standard/filler_text_background.png);display:block;float:none;margin-right:auto;margin-left:auto;vertical-align:middle;width:950px;">
+			<div style="background-image:url(res/Standard/filler_text_background.png);">
+				<table border="0" cellpadding="0" cellspacing="0" style="background-image:url(res/Standard/filler_text_background.png);margin-top:0;width:100%;">
+					<tbody>
+						<tr>
+							<td style="width:150px;"></td>
+							<td style="width:600px;"><div style="margin-top:10px;">
+								<h1 class="page-title ">Murar, staket, plank, spalj&eacute;er och h&auml;ckar</h1>
+								<p>Det kan beh&ouml;vas bygglov n&auml;r du ska s&auml;tta upp n&aring;gon form av inh&auml;gnad eller avsk&auml;rmning. H&auml;r f&ouml;ljer en beskrivning p&aring; n&auml;r du beh&ouml;ver s&ouml;ka bygglov.</p>
+								<h2>Mur och st&ouml;dmur</h2>
+								<p>Murar och st&ouml;dmurar &auml;r t&auml;ta inh&auml;gnader som kr&auml;ver bygglov om de &auml;r h&ouml;gre &auml;n 0,5 m. </p>
+								<h2>Staket</h2>
+								<p>Staket &auml;r en l&auml;tt avsk&auml;rmning som &auml;r genomsiktlig fr&aring;n alla h&aring;ll och ska ha minst 50 % luft mellan plankorna. Staket kr&auml;ver inte bygglov oavsett h&ouml;jd.</p>
+								<h2>Plank</h2>
+								<p>Ett plank &auml;r en t&auml;t konstruktion som har mindre &auml;n 50 % luft mellan plankorna. Om planket &auml;r h&ouml;gre &auml;n 1,1 meter m&auml;tt fr&aring;n marken s&aring; kr&auml;vs bygglov.</p>
+								<h2>Spalj&eacute;</h2>
+								<p>En inh&auml;gnad som har en genomsiktlighet p&aring; mer &auml;n 50 % kallas f&ouml;r spalj&eacute;. Spalj&eacute;er kr&auml;ver inget bygglov oavsett h&ouml;jd.&nbsp;</p>
+								<p>Inh&auml;gnader och mycket genomsiktliga avsk&auml;rmningar best&aring;ende av 50 % luft eller mer - staket, spalj&eacute;, st&auml;ngsel eller pergola beh&ouml;ver inget bygglov. </p>
+								<h2>H&auml;ck</h2>
+								<p>Det kr&auml;vs inte bygglov f&ouml;r att plantera en h&auml;ck eller ett tr&auml;d oavsett h&ouml;jd.</p>
+								<h2>Bygglovbefriade murar och plank</h2>
+								<p>Murar och plank vid en uteplats placerat och utformat enligt &rdquo;friggebodreglerna&rdquo; beh&ouml;ver inte bygglov, under f&ouml;ruts&auml;ttning att &aring;tg&auml;rden sker p&aring; ett en- eller tv&aring;bostadshus.<br /><a href="http://www.stockholm.se/ByggBo/Bygglov/Smahus/Friggebodsregler/">Information om friggebodsreglerna</a></p>
+								<p>En mur eller ett plank till skyddad uteplats f&aring;r byggas inom 3,6 meter fr&aring;n bostadshus. Muren eller planket f&aring;r inte vara h&ouml;gre &auml;n 1,8 meter m&auml;tt fr&aring;n marken. Avst&aring;ndet till tomtgr&auml;nsen ska vara minst 4,5 meter.<br /></p>
+								<p>Grannar kan godk&auml;nna att bygglovsbefriade murar och plank placeras n&auml;rmare deras gr&auml;ns &auml;n 4,5 meter. Ett skriftligt godk&auml;nnande fr&aring;n grannar f&ouml;rs&auml;krar dig mot framtida tvister. Avst&aring;nd till gata och park ska alltid vara minst 4,5 meter. D&auml;r finns inga undantag, enligt riktlinjer fr&aring;n Boverket.</p>
+								<h4>Bra att t&auml;nka p&aring;:</h4>
+								<ul>
+									<li>utforma och placera inh&auml;gnaden s&aring; att den blir trafiks&auml;ker och inte hindrar sikten vid korsningar och utfarter </li>
+									<li>placera inh&auml;gnaden innanf&ouml;r tomtgr&auml;nsen. Stadsbyggnadskontoret eller privata f&ouml;retag kan mot ers&auml;ttning komma ut och m&auml;rka ut vart tomtgr&auml;nsen g&aring;r </li>
+									<li>det ska finnas plats f&ouml;r underh&aring;ll. Om grannen inte vill medverka eller ge plats p&aring; sin tomt vid underh&aring;ll b&ouml;r inh&auml;gnaden placeras n&aring;gon meter in p&aring; den egna tomten </li>
+								</ul>
+								<h1><span style="font-size:12pt;">E-tj&auml;nster</span></h1>
+								<ul>
+									<li><span style="text-decoration:underline;"><strong><a href="http://insynsbk.stockholm.se/Byggochplantjansten/Butiken/">Best&auml;ll kartor och flygfoton</a></strong></span></li>
+									<li><strong><a href="http://insynsbk.stockholm.se/Byggochplantjansten/Arenden/">F&ouml;lj ditt bygglov</a></strong></li>
+									<li><strong><a href="http://insynsbk.stockholm.se/Byggochplantjansten/GallandePlan/">S&ouml;k g&auml;llande detaljplaner</a></strong></li>
+								</ul>
+								<p></p></div></td>
+							<td style="width:200px;"><div style="height:30px;"></div><div style="background-color:#e4f0ef;background-image:url(img/gre/Etikett-6-Soek.png);background-repeat:no-repeat;height:34px;margin-top:0;">
+								<div id="swc_SearchForm_IDFD2CFC8F721A40C4A3416586FD55F31C"><form id="SF1_form" method="post" action="Soekresultat.html" onsubmit="SFSendForm(&#39;SF1_input&#39;); return false;" class="sok">
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="sok"><input type="text" class="sokformular" id="SF1_input" style="width:110px;" /></td>
+		<td><img src="img/swspace.gif" height="1" width="14" style="border:none;" alt="" /></td>
+		<td valign="top" class="sok"><input id="SF1_img" type="image" src="img/gre/Etikett-7.png" style="height:25px;width:62;border:none;" alt="" /></td>
+	</tr>
+</table>
+</form>
+</div></div></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>&#8203;</p>
+			</div><img src="img/gre/Avdelare-2.png" title="" alt="" style="display:block;float:none;height:1px;margin-right:auto;margin-left:auto;width:949px;" /> 
+		</div>
+		<div style="background-color:#999999;display:block;float:none;height:32px;margin-right:auto;margin-left:auto;padding-top:3px;width:950px;">
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong>Ribe Samf&auml;llighetsf&ouml;rening, Ribegatan 77, 164 45 Kista, E-post: <a href="mailto:styrelsen@ribegatan.se"></a><a href="mailto:styrelsen@ribegatan.se">styrelsen[kanelbulle]ribegatan.se</a></strong></span></span></p>
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><strong>Uppdaterad: 2025-01-10. Copyright 2007 Ribe Samf&auml;llighetsf&ouml;rening.</strong></strong></span></span></strong></span></span></p>
+		</div>
+		<div style="display:block;float:none;height:20px;margin-right:auto;margin-left:auto;width:950px;">
+		</div>
+	</body>
+</html>

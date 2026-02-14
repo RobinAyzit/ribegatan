@@ -1,0 +1,1182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="Sitoo Web (www.sitoo.com)" />
+		<title>Styrelseprotokoll</title>
+		<link rel="stylesheet" type="text/css" href="css/swglobal.css" />
+		<link rel="stylesheet" type="text/css" href="css/swStandard.css" />
+	<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+	function SFGetRef(str)
+	{
+		return document.all ? document.all[str] : document.getElementById(str);
+	}
+
+	function SFSwitchImage(strID, strFileName)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+
+	function SFSendForm(strID)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		var str = obj.value;
+		if(str.length > 0) {
+			location.href = "Soekresultat.html?r=" + parseInt(Math.random() * 10000) + "&words=" + encodeURIComponent(str) + "#" + encodeURIComponent(str);
+		}
+	}
+//]]>
+</script>
+		<link rel="stylesheet" type="text/css" href="css/swglobal.css" />
+		<link rel="stylesheet" type="text/css" href="../css/swRibeMeny.css" />
+		<link rel="stylesheet" type="text/css" href="../css/swFoereningen.css" />
+		<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+		</script>
+		<script src="../../admin/sd_admin_client.js" type="text/javascript"></script>
+		<script type="text/javascript">
+//<![CDATA[
+
+	function PRIMOCNT1Render()
+	{
+		try {
+			var objESCF		= new ESCF();
+			var bAdmin		= objESCF.IsAdminLoggedOn();
+			var nCounter	= 0;
+
+			if(objESCF.IsAjaxEnabled() && objESCF.DoRequest("GET", "../../admin/sd_primo_services.php?type=counter&cmd=get&counterid=primo_default_counter", "")) {
+				var objEntryNode = objESCF.NodeGetRoot().ChildGetByName("ws_primo_counter_get")
+				if(objEntryNode != null && objEntryNode.GetAttribute("status") == "ok") {
+					var objValueNode = objEntryNode.ChildGetByName("countervalue");
+					var strValue = objValueNode.GetFirstText();
+					if(!isNaN(parseInt(strValue))) nCounter = parseInt(strValue);
+				}
+			}
+			
+			var strRet = "";
+
+			if(bAdmin) {
+				var strEntryFormDivId	= "PRIMOCNT1_entrydiv";
+				var strEntryFormId		= "PRIMOCNT1_form";
+
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;\"><tr>";
+				strRet += "<td style=\"width:19px;vertical-align:top;\">";
+				strRet += "<p style=\"background-color:transparent;background-image:none;border:none;padding-left:0px;padding-right:0px;margin-left:0px;margin-right:0px;margin-bottom:0px;line-height:0.5em;\" class=\"normal\">&nbsp;</p>";
+				strRet += "<div style=\"z-index:99;position:relative;\">";
+				strRet += "<div style=\"position:absolute;left:0px;top:-7px;z-index:2;\">";
+				strRet += "<a href=\"javascript:PRIMOCNTFadeIn('" + strEntryFormDivId + "');\" style=\"margin:0px;line-height:10px;font-size:10px;\"><img src=\"../../admin/img/sd_primo/sd_primo_comp_edit.png\" width=\"19\" height=\"14\" alt=\"<?php print($objESSF->GetLangString('WS_PRIMO_COMP_TEXT_EDIT', $objESSF->GetBackofficeLangId(), 'sd_primo')); ?>\" style=\"border:none;vertical-align:middle;\" /></a>";
+
+				strRet += "<div style=\"display:none;width:350px;background-image:url(../../admin/img/sd_primo/sd_primo_shadow.gif);background-repeat:no-repeat;background-position:3px 3px;padding-bottom:3px;padding-right:3px;\" id=\"" + strEntryFormDivId + "\">";
+
+				strRet += "<div style=\"border:1px solid #808080;border-bottom:none;background-image:url(../../admin/img/sd_primo/sd_primo_comp_bar_bg.jpg);background-repeat:repeat-x;background-position:center top;height:26px;line-height:26px;vertical-align:middle;background-color:#0055dd;padding-right:5px;padding-left:5px;\">";
+				strRet += "<img src=\"../../admin/img/sd_primo/sd_primo_comp_bar_edit_<?php print($objESSF->GetBackofficeLangId()); ?>.jpg\" width=\"109\" height=\"26\" alt=\"<?php print($objESSF->GetLangString('WS_PRIMO_COMP_TEXT_EDIT', $objESSF->GetBackofficeLangId(), 'sd_primo')); ?>\" style=\"border:none;display:block;\" />";
+				strRet += "</div>";
+				strRet += "<div style=\"border:1px solid #808080;background-color:#ebebeb;padding:10px;\">";
+
+				strRet += "<form action=\"Protokollfranstyrelsemoten.php\" onsubmit=\"return PRIMOCNTCounterModify('PRIMOCNT1', '" + strEntryFormId + "', '" + strEntryFormDivId + "', true);\" id=\"" + strEntryFormId + "\" style=\"margin:0px;padding:0px;\">";
+				strRet += "<div style=\"display:none;\">";
+				strRet += "<input type=\"hidden\" id=\"PRIMOCNT1CounterId\" name=\"CounterId\" value=\"primo_default_counter\" />";
+				strRet += "</div>";
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"3\" style=\"width:100%;\">";
+
+				strRet += "<tr>";
+				strRet += "<td style=\"vertical-align:middle;text-align:right;\"><?php print($objESSF->GetLangString('WS_PRIMO_COMP_TEXT_COUNTER_VALUE', $objESSF->GetBackofficeLangId(), 'sd_primo')); ?>&nbsp;</td>";
+				strRet += "<td style=\"vertical-align:top;\">";
+				strRet += "<input type=\"text\" style=\"width:225px;margin:0px;padding:2px;font-family:verdana;font-size:8pt;border:1px solid #666666;\" maxlength=\"255\" name=\"CounterValue\" value=\"" + nCounter + "\" />";
+				strRet += "</td></tr>";
+
+				strRet += "<tr><td>&nbsp;</td><td><input type=\"submit\" id=\"#(strObjName)_submit\" style=\"font-size:8pt;font-family:verdana;margin-top:5px;margin-right:5px;\" value=\"<?php print($objESSF->GetLangString('WS_PRIMO_COMP_TEXT_SAVE', $objESSF->GetBackofficeLangId(), 'sd_primo')); ?>\" /><input type=\"button\" id=\"#(strObjName)_cancel\" onclick=\"PRIMOCNTFadeOut('" + strEntryFormDivId + "');\" style=\"font-size:8pt;font-family:verdana;margin-top:5px;margin-right:5px;\" value=\"<?php print($objESSF->GetLangString('WS_PRIMO_COMP_TEXT_CANCEL', $objESSF->GetBackofficeLangId(), 'sd_primo')); ?>\" /></td></tr>";
+				strRet += "</table></form></div></div></div></div></td>";
+				strRet += "<td>";
+			}
+
+			strRet += "<p class=\"normal\">";
+			strRet += "Antal besökare: ";
+			strRet += nCounter;
+			strRet += "";
+			strRet += "</p>";
+
+			if(bAdmin) {
+				strRet += "</td></tr></table>";
+			}
+			
+			objESCF.LayerWrite("PRIMOCNT1_container", strRet);
+		} catch(e) {}
+	}
+	var PRIMOCNTCNTCurLayerId = "";
+
+	function PRIMOCNTIncrementCounter(strCounterId, bIsSessionCounter)
+	{
+		try {
+			var objESCF = new ESCF();
+			if(objESCF.IsAjaxEnabled() && objESCF.DoRequest("GET", "../../admin/sd_primo_services.php?type=counter&cmd=inc&counterid=" + encodeURIComponent(strCounterId) + "&issessioncounter=" + (bIsSessionCounter ? "true" : "false"), "")) {
+				var objEntryNode = objESCF.NodeGetRoot().ChildGetByName("ws_primo_counter_inc");
+				if(objEntryNode != null && objEntryNode.GetAttribute("status") == "ok") {
+					return true;
+				}
+			}
+		} catch(e) {}
+		return false;
+	}
+
+	function PRIMOCNTCounterModify(strObjName, strFormId, strFormDivId, bIsSessionCounter) 
+	{
+		try {
+			var objESCF = new ESCF();
+			var objForm = objESCF.GetRef(strFormId);
+			if(objForm == null || typeof(objForm) == "undefined") return false;
+
+			if(typeof(objForm.CounterId) == "undefined" || typeof(objForm.CounterValue) == "undefined") return false;
+			var strCounterId = objForm.CounterId.value;
+			
+			var strQueryString = "?type=counter&cmd=set";
+			strQueryString += "&counterid="			+ encodeURIComponent(strCounterId);
+			strQueryString += "&countervalue="		+ encodeURIComponent(objForm.CounterValue.value);
+			strQueryString += "&issessioncounter="	+ (bIsSessionCounter ? "true" : "false");
+
+			if(objESCF.IsAjaxEnabled() && objESCF.DoRequest("GET", "../../admin/sd_primo_services.php" + strQueryString, "")) {
+				PRIMOCNTFadeOut(strFormDivId);
+				setTimeout(strObjName + "Render();", 300);
+			}
+			return false;
+		} catch(e) {}
+	}
+
+	function PRIMOCNTSetOpacity(strId, fOpacity) 
+	{ 
+		try {
+			var objESCF				= new ESCF();
+			var obj					= objESCF.GetRef(strId);
+			if(typeof(obj) == "undefined" || typeof(obj.style) == "undefined") return;
+			obj.style.filter		= "alpha(opacity=" + fOpacity + ")"; 
+			obj.style.opacity		= (fOpacity / 100); 
+			obj.style.MozOpacity	= (fOpacity / 100); 
+			obj.style.KhtmlOpacity	= (fOpacity / 100); 
+		} catch(e) {}
+	}
+
+	function PRIMOCNTSetDisplay(strId, strDisplay)
+	{
+		try {
+			var objESCF				= new ESCF();
+			var obj					= objESCF.GetRef(strId);
+			obj.style.display		= strDisplay;
+		} catch(e) {}
+	} 
+
+	function PRIMOCNTFadeOut(strId) 
+	{
+		try {
+			var nMilliSeconds	= 250;
+			var nSteps			= 6;
+			var nDeltaTime		= nMilliSeconds / nSteps;
+			var nDeltaSteps		= 100 / nSteps;
+
+			PRIMOCNTSetOpacity(strId, 100); 
+
+			for(var i = 1; i < nSteps; ++i) {
+				setTimeout("PRIMOCNTSetOpacity('" + strId + "', " + (100 - (i + 1) * nDeltaSteps)  + ")", (i * nDeltaTime)); 
+			}
+			setTimeout("PRIMOCNTSetDisplay('" + strId + "', 'none');", (nMilliSeconds + nDeltaTime)); 
+			if(PRIMOCNTCNTCurLayerId == strId) PRIMOCNTCNTCurLayerId = "";
+		} catch(e) {}
+	}
+
+	function PRIMOCNTFadeIn(strId) 
+	{
+		try {
+			var nMilliSeconds	= 250;
+			var nSteps			= 6;
+			var nDeltaTime		= nMilliSeconds / nSteps;
+			var nDeltaSteps		= 100 / nSteps;
+
+			if(PRIMOCNTCNTCurLayerId != strId) {
+				if(PRIMOCNTCNTCurLayerId != "") {
+					PRIMOCNTFadeOut(PRIMOCNTCNTCurLayerId);
+				}
+				PRIMOCNTCNTCurLayerId = strId;
+			} else {
+				return;
+			}
+
+			PRIMOCNTSetOpacity(strId, 0); 
+			PRIMOCNTSetDisplay(strId, "block");
+
+			for(var i = 1; i < nSteps; ++i) {
+				setTimeout("PRIMOCNTSetOpacity('" + strId + "', " + ((i + 1) * nDeltaSteps)  + ")", (i * nDeltaTime)); 
+			}
+		} catch(e) {}
+	}
+//]]>
+		</script>
+		<script type="text/javascript">
+//<![CDATA[
+	function mvgGetRef(str)						{ return (document.all) ? document.all[str] : document.getElementById(str); }
+	function mvgSetClass(strId, strClass)		{ var obj = mvgGetRef(strId); if(obj != null && typeof(obj) != "undefined") obj.className = strClass; }
+	function mvgSwitchImage(strId, strFileName)	{ var obj = mvgGetRef(strId); if(obj != null && typeof(obj) != "undefined") obj.src = strFileName; }
+//]]>
+		</script>
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="robots" content="index,follow" />
+		<meta http-equiv="expires" content="MON, 1 SEP 2003 12:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<link rel="stylesheet" href="Ribegatan.css" type="text/css" />
+		<style type="text/css">
+			a {
+	color:#000066;
+	text-decoration:underline;
+}
+a:visited {
+	text-decoration:underline;
+}
+a:hover {
+	text-decoration:underline;
+}
+a img {
+	border:#000000 0px none;
+}
+		</style>
+		<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+		</script>
+		<script type="text/javascript">
+//<![CDATA[
+	function mvgGetRef(str)						{ return (document.all) ? document.all[str] : document.getElementById(str); }
+	function mvgSetClass(strId, strClass)		{ var obj = mvgGetRef(strId); if(obj != null && typeof(obj) != "undefined") obj.className = strClass; }
+	function mvgSwitchImage(strId, strFileName)	{ var obj = mvgGetRef(strId); if(obj != null && typeof(obj) != "undefined") obj.src = strFileName; }
+//]]>
+		</script>
+		<script type="text/javascript">
+//<![CDATA[
+	function SitooOnLoad() {
+		try {
+			PRIMOCNTIncrementCounter("primo_default_counter", true);
+			var objESCF = new ESCF();
+			if(objESCF.IsAdminLoggedOn() || true) PRIMOCNT1Render();
+		} catch(e) {}
+
+	}
+//]]>
+		</script>
+	<script type="text/javascript">
+//<![CDATA[
+	function SitooOnLoad() {
+	{
+		var strWords = "";
+		if(typeof(SYS_SearchResultsGetWords) + "" != "undefined") {
+			strWords = SYS_SearchResultsGetWords();
+		} else {
+			strWords = decodeURIComponent(location.hash + "");
+			if(strWords.length > 1) strWords = strWords.substr(1);
+		}
+		var obj = SFGetRef("SF1_input");
+		if(typeof(obj) + "" != "undefined") {
+			obj.value = strWords;
+		}
+	}
+
+	}
+//]]>
+</script>
+</head>
+	<body style="background-image:url(res/Standard/bakgrund-3.gif);" onload="SitooOnLoad();">
+		<div style="background-color:#ffffff;background-image:url(res/Standard/filler1.png);display:block;float:none;height:110px;margin-top:0;margin-right:auto;margin-left:auto;width:950px;">
+			<div style="height:10px;">
+			</div><a href="Vaelkommen.html"></a><a href="index.html"><img src="res/Standard/ribehead.png" title="ribehead.png" alt="ribehead.png" style="display:block;float:none;margin-right:auto;margin-left:auto;" /></a> 
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID90A19F9933E448E9BA68B1B9A88BFE95">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+		<td id="MH1_0"><a href="index.html" onmouseover="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt.png&#39;);"><img id="MH1_0_img" src="img/gre/Knapp-1-Aktuellt.png" alt="Aktuellt" style="border:none;display:block;" /></a></td>
+		<td id="MH1_1"><a href="Vaelkommen.html" onmouseover="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen.png&#39;);"><img id="MH1_1_img" src="img/gre/Knapp-1-Vaelkommen.png" alt="V&auml;lkommen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_2"><a href="Samfaelligheten.html" onmouseover="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_2.png&#39;);"><img id="MH1_2_img" src="img/gre/Knapp-1-Samfaelligheten_2.png" alt="Samf&auml;lligheten" style="border:none;display:block;" /></a></td>
+		<td id="MH1_3"><a href="Kalendarium.html" onmouseover="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium.png&#39;);"><img id="MH1_3_img" src="img/gre/Knapp-1-Kalendarium.png" alt="Kalendarium" style="border:none;display:block;" /></a></td>
+		<td id="MH1_4"><a href="Husen.html" onmouseover="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen.png&#39;);"><img id="MH1_4_img" src="img/gre/Knapp-1-Husen.png" alt="Husen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_5"><a href="Indelning.html" onmouseover="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet.png&#39;);"><img id="MH1_5_img" src="img/gre/Knapp-1-Omraadet.png" alt="Omr&aring;det" style="border:none;display:block;" /></a></td>
+		<td id="MH1_6"><a href="Bilder-Historia.html" onmouseover="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia.png&#39;);"><img id="MH1_6_img" src="img/gre/Knapp-1-Bilder-Historia.png" alt="Bilder &amp; Historia" style="border:none;display:block;" /></a></td>
+		<td id="MH1_7"><a href="Laenkar.html" onmouseover="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar.png&#39;);"><img id="MH1_7_img" src="img/gre/Knapp-1-Laenkar.png" alt="L&auml;nkar" style="border:none;display:block;" /></a></td>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID70A0A6BABBB1496BB39E109077EDEA53">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="MH2_0"><a href="Aegarbyte.html" onmouseover="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-AegarbyteAegarfoeraendring_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-AegarbyteAegarfoeraendring.png&#39;);"><img id="MH2_0_img" src="img/gre/Knapp-2-AegarbyteAegarfoeraendring.png" alt="&Auml;garbyte/&Auml;garf&ouml;r&auml;ndring" style="border:none;display:block;" /></a></td>
+		<td id="MH2_1"><a href="Foereningen.html" onmouseover="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Foereningen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Foereningen_2.png&#39;);"><img id="MH2_1_img" src="img/gre/Knapp-2-Foereningen_2.png" alt="F&ouml;reningen" style="border:none;display:block;" /></a></td>
+		<td id="MH2_2"><a href="Styrelsen.html" onmouseover="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Styrelsen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Styrelsen.png&#39;);"><img id="MH2_2_img" src="img/gre/Knapp-2-Styrelsen.png" alt="Styrelsen" style="border:none;display:block;" /></a></td>
+		<td id="MH2_3"><a href="Avgift.html" onmouseover="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Avgift_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Avgift.png&#39;);"><img id="MH2_3_img" src="img/gre/Knapp-2-Avgift.png" alt="Avgift" style="border:none;display:block;" /></a></td>
+		<td id="MH2_4"><a href="TV.html" onmouseover="MHSwitchImage(&#39;MH2_4_img&#39;, &#39;img/gre/Knapp-2-TV-._3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_4_img&#39;, &#39;img/gre/Knapp-2-TV-..png&#39;);"><img id="MH2_4_img" src="img/gre/Knapp-2-TV-..png" alt="  TV  ." style="border:none;display:block;" /></a></td>
+		<td id="MH2_5"><a href="Bredband.html" onmouseover="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Bredband_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Bredband.png&#39;);"><img id="MH2_5_img" src="img/gre/Knapp-2-Bredband.png" alt="Bredband" style="border:none;display:block;" /></a></td>
+		<td id="MH2_6"><a href="Foermaaner.html" onmouseover="MHSwitchImage(&#39;MH2_6_img&#39;, &#39;img/gre/Knapp-2-Foermaaner_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_6_img&#39;, &#39;img/gre/Knapp-2-Foermaaner.png&#39;);"><img id="MH2_6_img" src="img/gre/Knapp-2-Foermaaner.png" alt="F&ouml;rm&aring;ner" style="border:none;display:block;" /></a></td>
+		<td id="MH2_7"><a href="Blanketter.html" onmouseover="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Arkiv-Blanketter_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Arkiv-Blanketter.png&#39;);"><img id="MH2_7_img" src="img/gre/Knapp-2-Arkiv-Blanketter.png" alt="Arkiv &amp; Blanketter" style="border:none;display:block;" /></a></td>
+		<td style="width:100%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID8CC5F0E929E142BC8DA7431217F2C63F">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="MH3_0"><a href="Stadgar.html" onmouseover="MHSwitchImage(&#39;MH3_0_img&#39;, &#39;img/gre/Knapp-2-Stadgar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH3_0_img&#39;, &#39;img/gre/Knapp-2-Stadgar.png&#39;);"><img id="MH3_0_img" src="img/gre/Knapp-2-Stadgar.png" alt="Stadgar" style="border:none;display:block;" /></a></td>
+		<td id="MH3_1"><a href="Anlaeggningar.html" onmouseover="MHSwitchImage(&#39;MH3_1_img&#39;, &#39;img/gre/Knapp-2-Anlaeggningar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH3_1_img&#39;, &#39;img/gre/Knapp-2-Anlaeggningar.png&#39;);"><img id="MH3_1_img" src="img/gre/Knapp-2-Anlaeggningar.png" alt="Anl&auml;ggningar" style="border:none;display:block;" /></a></td>
+		<td id="MH3_2"><img id="MH3_2_img" src="img/gre/Knapp-2-Styrelseprotokoll_2.png" alt="Styrelseprotokoll" style="border:none;display:block;" /></td>
+		<td id="MH3_3"><a href="Staemmoprotokoll.html" onmouseover="MHSwitchImage(&#39;MH3_3_img&#39;, &#39;img/gre/Knapp-2-Staemmoprotokoll_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH3_3_img&#39;, &#39;img/gre/Knapp-2-Staemmoprotokoll.png&#39;);"><img id="MH3_3_img" src="img/gre/Knapp-2-Staemmoprotokoll.png" alt="St&auml;mmoprotokoll" style="border:none;display:block;" /></a></td>
+		<td id="MH3_4"><a href="NyhetsbrevetRibeInfo.html" onmouseover="MHSwitchImage(&#39;MH3_4_img&#39;, &#39;img/gre/Knapp-2-NyhetsbrevetRibeInfo_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH3_4_img&#39;, &#39;img/gre/Knapp-2-NyhetsbrevetRibeInfo.png&#39;);"><img id="MH3_4_img" src="img/gre/Knapp-2-NyhetsbrevetRibeInfo.png" alt="NyhetsbrevetRibeInfo" style="border:none;display:block;" /></a></td>
+		<td id="MH3_5"><a href="Bygglov.html" onmouseover="MHSwitchImage(&#39;MH3_5_img&#39;, &#39;img/gre/Knapp-2-Bygglov_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH3_5_img&#39;, &#39;img/gre/Knapp-2-Bygglov.png&#39;);"><img id="MH3_5_img" src="img/gre/Knapp-2-Bygglov.png" alt="Bygglov" style="border:none;display:block;" /></a></td>
+		<td style="width:100%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-color:#e4f0ef;background-image:url(res/Standard/filler_text_background.png);display:block;float:none;margin-right:auto;margin-left:auto;vertical-align:middle;width:950px;">
+			<div style="background-image:url(res/Standard/filler_text_background.png);">
+				<table border="0" cellpadding="0" cellspacing="0" style="background-image:url(res/Standard/filler_text_background.png);margin-top:0;width:100%;">
+					<tbody>
+						<tr>
+							<td style="width:150px;"></td>
+							<td style="width:600px;"><div style="margin-top:10px;">
+								<div id="Comp6_sys_doctext" style="width:550px;">
+									<h1><span style="font-size:15pt;">Protokoll fr&aring;n styrelsem&ouml;ten i Ribe Samf&auml;llighet </span></h1>
+									<h3 class="h3">(PDF-format)</h3>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><em><strong>Protokoll fr&aring;n 2024</strong></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Styrelseprotokoll-konstituerande-2021-12-06.pdf"></a></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2022-11-28.pdf"></a></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Styrelseprotokoll-2023-10-16.pdf"></a></em></td>
+											</tr>
+											<tr>
+												<td>&#8203;</td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Konstituerande-2024-12-16.pdf"></a><a href="res/protokoll/Konstituerande-2024-12-16.pdf">Konstituerande-2024-12-16</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2024-10-07.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2024-10-07.pdf">2024-10-07</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/2024-09-16.pdf"></a><a href="res/protokoll/2024-09-16.pdf">2024-09-16</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2024-08-23.pdf"></a><a href="res/protokoll/Protokoll-2024-08-23.pdf">2024-08-23</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll_2024-06-17.pdf"></a><a href="res/protokoll/Protokoll_2024-06-17.pdf">2024-06-17</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2024-04-15.jpeg"></a><a href="res/protokoll/Protokoll-2024-04-15.jpeg">2024-04-15</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2023-12-18.pdf"></a><a href="res/protokoll/Protokoll-2024-02-19.pdf"></a><a href="res/protokoll/Protokoll-2024-02-19.pdf">2024-02-19</a></strong></em><a href="res/protokoll/Styrelse-protokoll-2021-01-18.pdf"></a></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><em><strong>Protokoll fr&aring;n 2023</strong></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Styrelseprotokoll-konstituerande-2021-12-06.pdf"></a></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2023-12-18.pdf"></a><strong><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2023-12-18.pdf">Konstituerande-2023-12-18</a></strong><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2022-11-28.pdf"></a></em></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Styrelseprotokoll-2023-10-16.pdf"></a><span style="font-style:normal;"><strong><a href="res/protokoll/Styrelseprotokoll-2023-10-16.pdf">2023-10-16</a></strong></span></em></td>
+											</tr>
+											<tr>
+												<td><strong><a href="res/protokoll/Styrelseprotokoll-2023-09-21.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2023-09-21.pdf">2023-09-21</a></strong></td>
+											</tr>
+											<tr>
+												<td><em><a href="res/protokoll/Styrelseprotokoll-2023-08-21.pdf"></a><strong><a href="res/protokoll/Styrelseprotokoll-2023-08-21.pdf">2023-08-21</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2023-06-12.pdf"></a><strong><em><a href="res/protokoll/Protokoll-2023-06-12.pdf">2023-06-12</a></em></strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2023-05-22.pdf"></a><strong><em><a href="res/protokoll/Protokoll-2023-05-22.pdf">2023-05-22</a></em></strong></td>
+											</tr>
+											<tr>
+												<td><strong><em><a href="res/protokoll/Protokoll-2023-04-17.pdf"></a><a href="res/protokoll/Protokoll-2023-04-17.pdf">2023-04-17</a></em></strong></td>
+											</tr>
+											<tr>
+												<td><strong><em><a href="res/protokoll/Protokoll-2023-03-13.pdf"></a><a href="res/protokoll/Protokoll-2023-03-13.pdf">2023-03-13</a></em></strong><a href="res/protokoll/Protokoll-2023-04-17.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2023-02-13.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2023-02-13.pdf">2023-02-13</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2023-01-16.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2023-01-16.pdf">2023-01-16</a></strong></em><a href="res/protokoll/Styrelse-protokoll-2021-01-18.pdf"></a></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2022</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-konstituerande-2021-12-06.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2022-11-28.pdf"></a><em><strong><a href="res/protokoll/Konstituerande-Styrelseprotokoll-2022-11-28.pdf">Konstituerande-2022-11-28</a></strong></em><a href="res/protokoll/Styrelseprotokoll-2021-11-08.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2022-10-24.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-10-24.pdf">2022-10-24</a></strong></em><a href="res/protokoll/Styrelseprotokoll-2021-10-18.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2022-10-10.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-10-10.pdf">2022-10-10</a><a href="res/protokoll/Styrelseprotokol-2021-09-20.pdf"></a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-08-22.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2022-08-22.pdf">2022-08-22</a></strong></em><a href="res/protokoll/Styrelseprotokoll-2021-08-23.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-06-13.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2022-06-13.pdf">2022-06-13</a><a href="res/protokoll/Styrelseprotokoll-2021-06-14.pdf"></a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Stryrelseprotkoll-2022-05-09.pdf"></a><em><strong><a href="res/protokoll/Stryrelseprotkoll-2022-05-09.pdf">2022-05-09</a><a href="res/protokoll/Styrelseprotokoll-2021-05-10.pdf"></a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-04-11.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2022-04-11.pdf">2022-04-11</a><a href="res/protokoll/Styrelseprotokoll-2021-04-12.pdf"></a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-03-21.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2022-03-21.pdf">2022-03-21</a></strong></em><a href="res/protokoll/Styrelseprotokoll-2021-03-15.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2022-02-22.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-02-22.pdf">2022-02-22</a></strong></em><a href="res/protokoll/Styrelse-protokoll-2021-02-15.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2022-01-17.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2022-01-17.pdf">2022-01-17</a></strong></em><a href="res/protokoll/Styrelse-protokoll-2021-01-18.pdf"></a></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2021</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-konstituerande-2021-12-06.pdf"></a><em><strong>K<a href="res/protokoll/Styrelseprotokoll-konstituerande-2021-12-06.pdf">onstituerande-2021-12-06</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-11-08.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-11-08.pdf">2021-11-08</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-10-18.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-10-18.pdf">2021-10-18</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokol-2021-09-20.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokol-2021-09-20.pdf">2021-09-20</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-08-23.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-08-23.pdf">2021-08-23</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-06-14.pdf"></a><a href="res/protokoll/Styrelseprotokoll-2021-06-14.pdf">2021-06-14</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-05-10.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-05-10.pdf">2021-05-10</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-04-12.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-04-12.pdf">2021-04-12</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelseprotokoll-2021-03-15.pdf"></a><em><strong><a href="res/protokoll/Styrelseprotokoll-2021-03-15.pdf">2021-03-15</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelse-protokoll-2021-02-15.pdf"></a><em><strong><a href="res/protokoll/Styrelse-protokoll-2021-02-15.pdf">2021-02-15</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Styrelse-protokoll-2021-01-18.pdf"></a><em><strong><a href="res/protokoll/Styrelse-protokoll-2021-01-18.pdf">2021-01-18</a></strong></em></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2020</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-Konstiuerande-2020-12-07.pdf"></a><em><strong><a href="res/protokoll/Protokoll-Konstiuerande-2020-12-07.pdf">Konstituerande-2020-12-07</a><a href="res/protokoll/Protokoll-2019-11-04.pdf"></a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-11-17-extra.pdf"></a><a href="res/protokoll/Protokoll-2020-11-17-extra.pdf">2020-11-17-extra</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2020-10-12.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2020-10-12.pdf">2020-10-12</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-09-21.pdf"></a><a href="res/protokoll/Protokoll-2020-09-21.pdf">2020-09-21</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-08-24.pdf"></a><a href="res/protokoll/Protokoll-2020-08-24.pdf">2020-08-24</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2020-06-08.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2020-06-08.pdf">2020-06-08</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-05-11.pdf"></a><a href="res/protokoll/Protokoll-2020-05-11.pdf">2020-05-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-04-20.pdf"></a><a href="res/protokoll/Protokoll-2020-04-20.pdf">2020-04-20</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-02-19.pdf"></a><a href="res/protokoll/Protokoll-2020-02-19.pdf">2020-02-19</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2020-01-20.pdf"></a><a href="res/protokoll/Protokoll-2020-01-20.pdf">2020-01-20</a></strong></em></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:38.639%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2019</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-konstituerande-2019-12-02.pdf"></a><em><strong><a href="res/protokoll/Protokoll-konstituerande-2019-12-02.pdf">Konstituerande-2019-12-02</a></strong></em><a href="res/protokoll/Protokoll-Konstituerande-2018-12-11.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-11-04.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-11-04.pdf">2019-11-04</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-10-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-10-14.pdf">2019-10-14</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-09-16.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-09-16.pdf">2019-09-16</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-08-19.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-08-19.pdf">2019-08-19</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-06-10.pdf"></a><strong><em><a href="res/protokoll/Protokoll-2019-06-10.pdf">2019-06-10</a></em></strong><a href="res/protokoll/Protokoll-2019-06-10.pdf"></a></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-05-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-05-13.pdf">2019-05-13</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-04-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-04-11.pdf">2019-04-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-03-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-03-11.pdf">2019-03-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2019-02-11.pdf"></a><a href="res/protokoll/Protokoll-2019-02-11.pdf">2019-02-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2019-01-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2019-01-14.pdf">2019-01-14</a></strong></em></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:28.2%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2018</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-Konstituerande-2018-12-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-Konstituerande-2018-12-11.pdf">2018-12-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2018-11-05.pdf"></a><a href="res/protokoll/Protokoll-2018-11-05.pdf">2018-11-05</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2018-10-22.pdf"></a><a href="res/protokoll/Protokoll-2018-10-22.pdf">2018-10-22</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2018-09-17.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2018-09-17.pdf">2018-09-17</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll-2018-08-13.pdf"></a><a href="res/protokoll/Protokoll-2018-08-13.pdf">2018-08-13</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll-2018-06-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2018-06-11.pdf">2018-06-11</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2018-05-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2018-05-14.pdf">2018-05-14</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><em><strong><a href="res/protokoll/Protokoll_2018-04-23.pdf"></a><a href="res/protokoll/Protokoll_2018-04-23.pdf">2018-04-23</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2018-03-19.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2018-03-19.pdf">2018-03-19</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2018-02-19.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2018-02-19.pdf">2018-02-19</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2018-01-22.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2018-01-22.pdf">2018-01-22</a></strong></em></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<p>&#8203;</p>
+									<table border="1" cellpadding="0" cellspacing="0" style="margin-right:5px;margin-left:50px;width:28.2%;">
+										<tbody>
+											<tr>
+												<td><strong>Protokoll fr&aring;n 2017</strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_konstituernade_2017-12-04.pdf"></a><em><strong><a href="res/protokoll/Protokoll_konstituernade_2017-12-04.pdf">2017-12-04</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-10-30.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-10-30.pdf">2017-10-30</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-10-09.pdf"></a><strong><em><a href="res/protokoll/Protokoll_2017-10-09.pdf">2017-10-09</a></em></strong></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-09-18.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-09-18.pdf">2017-09-18</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-08-21.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-08-21.pdf">2017-08-21</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-06-12.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-06-12.pdf">2017-06-12</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-05-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-05-15.pdf">2017-05-15</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-04-03.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-04-03.pdf">2017-04-03</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-03-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-03-13.pdf">2017-03-13</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-02-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-02-13.pdf">2017-02-13</a></strong></em></td>
+											</tr>
+											<tr>
+												<td><a href="res/protokoll/Protokoll_2017-01-09.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2017-01-09.pdf">2017-01-09</a></strong></em></td>
+											</tr>
+										</tbody>
+									</table>
+									<p>&#8203;</p>
+									<div style="margin-left:50px;width:150px;">
+										<table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+											<tbody>
+												<tr>
+													<td><strong>Protokoll fr&aring;n 2016</strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protolkoll_2016-12-05.pdf"></a><em><strong><a href="res/protokoll/Protolkoll_2016-12-05.pdf">2016-12-05</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-10-31.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-10-31.pdf">2016-10-31</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-10-17.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-10-17.pdf">2016-10-17</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-09-12.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-09-12.pdf">2016-09-12</a></strong></em><a href="res/protokoll/Protokoll_2016-10-31.pdf"></a></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-08-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-08-15.pdf">2016-08-15</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_20160516-20160613.pdf"></a><em><strong><a href="res/protokoll/Protokoll_20160516-20160613.pdf">20160516-20160613</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-04-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-04-11.pdf">2016-04-11</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-03-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-03-14.pdf">2016-03-14</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-02-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2016-02-15.pdf">2016-02-15</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2016-01-11.pdf"><em><strong>2016-01-11</strong></em></a></td>
+												</tr>
+											</tbody>
+										</table><a href="res/protokoll/Protokoll_2016-04-11.pdf"></a>
+									</div>
+									<p>&#8203;</p>
+									<p>&#8203;</p>
+									<div style="margin-left:50px;width:150px;">
+										<table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+											<tbody>
+												<tr>
+													<td><strong>Protokoll fr&aring;n 2015</strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_konstituerande_2015-12-07.pdf"></a><em><strong><a href="res/protokoll/Protokoll_konstituerande_2015-12-07.pdf">2015-12-07</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-11-02.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-11-02.pdf">2015-11-02</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><em><strong><a href="res/protokoll/Protokoll_2015-10-12.pdf"></a><a href="res/protokoll/Protokoll_2015-10-12.pdf">2015-10-12</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-09-10.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-09-10.pdf">2015-09-10</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-08-10.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-08-10.pdf">2015-08-10</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-06-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-06-15.pdf">2015-06-15</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-05-18.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-05-18.pdf">2015-05-18</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-04-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-04-13.pdf">2015-04-13</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-03-09.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-03-09.pdf">2015-03-09</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2015-02-09.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2015-02-09.pdf">2015-02-09</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokol_2015-01-12.pdf"></a><em><strong><a href="res/protokoll/Protokol_2015-01-12.pdf">2015-01-12</a></strong></em></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<p>&#8203;</p>
+									<p>&#8203;</p>
+									<div style="margin-left:50px;width:150px;">
+										<table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+											<tbody>
+												<tr>
+													<td><strong>Protokoll fr&aring;n 2014</strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-Konstituerande_2014-12-01.pdf"></a><em><strong><a href="res/protokoll/Protokoll-Konstituerande_2014-12-01.pdf">2014-12-01</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-10-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-10-13.pdf">2014-10-13</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-09-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-09-15.pdf">2014-09-15</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-08-18.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-08-18.pdf">2014-08-18</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-06-09.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-06-09.pdf">2014-06-09</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-05-13.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-05-13.pdf">2014-05-13</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-04-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-04-14.pdf">2014-04-14</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-03-17.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-03-17.pdf">2014-03-17</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2014-02-17.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2014-02-17.pdf">2014-02-17</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2014-01-08.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2014-01-08.pdf">2014-01-08</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-12-05-Konstituerande.pdf"></a><strong><em><a href="res/protokoll/Protokoll-2013-12-05-Konstituerande.pdf">2013-12-05</a></em></strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<p>&#8203;</p>
+									<p>&#8203;</p>
+									<div style="margin-left:50px;width:150px;">
+										<table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+											<tbody>
+												<tr>
+													<td><strong>Protokoll fr&aring;n 2013</strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-10-28.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-10-28.pdf">2013-10-28</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-10-07.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-10-07.pdf">2013-10-07</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-09-09.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-09-09.pdf">2013-09-09</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-08-12.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-08-12.pdf">2013-08-12</a></strong></em><a href="res/protokoll/Protokoll-2013-09-09.pdf"></a></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013_06_18.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013_06_18.pdf">2013-06-18</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-05-20.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-05-20.pdf">2013-05-20</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-04-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-04-11.pdf">2013-04-11</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-03-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-03-11.pdf">2013-03-11</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-02-11.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-02-11.pdf">2013-02-11</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2013-01-14.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2013-01-14.pdf">2013-01-14</a></strong></em></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<p>&#8203;</p>
+									<div style="margin-left:50px;width:150px;">
+										<table border="1" cellpadding="0" cellspacing="0" style="background-image:url(res/Standard/bakgrund-3.gif);width:100%;">
+											<tbody>
+												<tr>
+													<td><strong>Protokoll fr&aring;n 2012</strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll_2012-12-20.pdf"></a><em><strong><a href="res/protokoll/Protokoll_2012-12-20.pdf">2012-12-20</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-10-16.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-10-16.pdf">2012-10-16</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-09-18.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-09-18.pdf">2012-09-18</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-08-21.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-08-21.pdf">2012-08-21</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-06-12.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-06-12.pdf">2012-06-12</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-05-15.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-05-15.pdf">2012-05-15</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-04-17.pdf"></a><strong><em><a href="res/protokoll/Protokoll-2012-04-17.pdf">2012-04-17</a></em></strong></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-03-20.pdf"><em><strong>2012-03-20</strong></em></a></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-02-21-justerat.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-02-21-justerat.pdf">2012-02-21</a></strong></em></td>
+												</tr>
+												<tr>
+													<td><a href="res/protokoll/Protokoll-2012-01-17-justerat.pdf"></a><em><strong><a href="res/protokoll/Protokoll-2012-01-17-justerat.pdf">2012-01-17</a></strong></em></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="h3" style="border-color:#009900;margin-top:10px;margin-right:auto;margin-left:50px;width:150px;">
+										<p><em></em></p>
+										<table border="1" cellpadding="0" cellspacing="0" style="background-color:#009900;background-image:url(res/Standard/bakgrund-3.gif);border-color:#009900;width:100%;">
+											<tbody>
+												<tr>
+													<td><span style="font-size:9pt;"><strong>Protokoll fr&aring;n 2011</strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20111206_protokoll.pdf">2011-12-06</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20111025_protokoll.pdf">2011-10-25</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110927_protokoll.pdf">2011-09-27</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110830_protokoll.pdf">2011-08-30</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110613_protokoll.pdf">2011-06-13</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110524_protokoll.pdf">2011-05-24</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110426_protokoll.pdf">2011-04-26</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110322_protokoll_ny.pdf">2011-03-22</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110215_protokoll_ny.pdf">2011-02-15</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20110118_protokoll.pdf">2011-01-18</a> </em></strong></span></td>
+												</tr>
+											</tbody>
+										</table>
+										<p>&#8203;</p>
+									</div>
+									<div class="h3" style="border-color:#009900;margin-top:10px;margin-right:auto;margin-left:50px;width:150px;">
+										<p><em></em></p>
+										<table border="1" cellpadding="0" cellspacing="0" style="background-color:#009900;background-image:url(res/Standard/bakgrund-3.gif);border-color:#009900;width:100%;">
+											<tbody>
+												<tr>
+													<td><span style="font-size:9pt;"><strong>Protokoll fr&aring;n 2010</strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20101221_protokoll_ny.pdf">2010-12-21</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20101102_protokoll.pdf">2010-11-02</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20101018_protokoll_xtra.pdf">2010-10-18</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20101005_protokoll.pdf">2010-10-05</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100907_protokoll.pdf">2010-09-07</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100817_protokoll.pdf">2010-08-17</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><em><strong><a href="res/protokoll/20100601_protokoll.pdf">2010-06-01</a> </strong></em></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100504_protokoll.pdf">2010-05-04</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100330_protokoll.pdf">2010-03-30</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100302_protokoll.pdf">2010-03-02</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100202_protokoll.pdf">2010-02-02</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20100112_styrelseprotokoll.pdf">2010-01-12</a> </em></strong></span></td>
+												</tr>
+											</tbody>
+										</table>
+										<p><span style="font-size:9pt;">&#8203;</span></p>
+									</div>
+									<div class="h3" style="border-color:#009900;margin-top:10px;margin-right:auto;margin-left:50px;width:150px;">
+										<p><em></em></p>
+										<table border="1" cellpadding="0" cellspacing="0" style="background-color:#009900;background-image:url(res/Standard/bakgrund-3.gif);border-color:#009900;width:100%;">
+											<tbody>
+												<tr>
+													<td><span style="font-size:9pt;"><strong>Protokoll fr&aring;n 2009</strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20091207_protokoll_konstit.pdf">2009-12-07</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20091026_styrelseprotokollnr10_extra.pdf">2009-10-26</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20091012_styrelseprootkoll.pdf">2009-10-12</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090915_styrelseprotokoll.pdf">2009-09-15</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090817_styrelseprotokoll.pdf">2009-08-17</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090608_styrelseprotokoll.pdf">2009-06-08</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090525_styrelseprotokoll.pdf">2009-05-25</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090512_styrelseprotokoll.pdf">2009-05-12</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090414_styrelseprotokoll.pdf">2009-04-14</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090316_styrelseprotokoll.pdf">2009-03-16</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090216_styrelsemote.pdf">2009-02-16</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td style="background-image:url(res/Default/bakgrund.gif);"><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20090114_styrelsemote.pdf">2009-01-14</a> </em></strong></span></td>
+												</tr>
+											</tbody>
+										</table>
+										<p><span style="font-size:9pt;">&#8203;</span></p>
+									</div>
+									<h3 class="h3">&#8203;</h3>
+									<div class="h3" style="border-color:#009900;margin-top:10px;margin-right:auto;margin-left:50px;width:150px;">
+										<p><em></em></p>
+										<table border="1" cellpadding="0" cellspacing="0" style="background-color:#009900;background-image:url(res/Standard/bakgrund-3.gif);border-color:#009900;width:100%;">
+											<tbody>
+												<tr>
+													<td><span style="font-size:9pt;"><strong>Protokoll fr&aring;n 2008</strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em>2<a href="res/protokoll/20081208_konstit_styrelsemote.pdf">008-12-08</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20081013_styrelseprot.pdf">2008-10-13</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080908_styrelseprotokoll.pdf">2008-09-08</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080818_protokoll.pdf">2008-08-18</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080609_styrelseprotokoll_red.pdf">2008-06-09</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080512_styrelseprotokoll.pdf">2008-05-12</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080414_styrelseprotokoll.pdf">2008-04-14</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080310_styrelseprotokoll.pdf">2008-03-10</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080211_styrelseprotokoll.pdf">2008-02-11</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20080121_styrelseprotokoll.pdf">2008-01-21</a> </em></strong></span></td>
+												</tr>
+											</tbody>
+										</table>
+										<p><span style="font-size:9pt;">&#8203;</span></p>
+									</div>
+									<div class="h3" style="border-color:#009900;margin-top:10px;margin-right:auto;margin-left:50px;width:150px;">
+										<p><em></em></p>
+										<table border="1" cellpadding="0" cellspacing="0" style="background-color:#009900;background-image:url(res/Standard/bakgrund-3.gif);border-color:#009900;width:100%;">
+											<tbody>
+												<tr>
+													<td><span style="font-size:9pt;"><strong>Protokoll fr&aring;n 2007</strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20071217_styrelseprotokoll.pdf">2007-12-17</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20071015_styrelseprotokoll.pdf">2007-10-15</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070917_styrelseprotokoll.pdf">2007-09-17</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070827_styrelseprotokoll.pdf">2007-08-27</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070611_styrelseprotokoll.pdf">2007-06-11</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070521_styrelseprotokoll.pdf">2007-05-21</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070416_styrelseprotokoll.pdf">2007-04-16</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070312_styrelseprotokoll.pdf">2007-03-12</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070312_styrelseprotokoll.pdf">2007-02-12</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20070115_styrelseprotokoll.pdf">2007-01-15</a> </em></strong></span></td>
+												</tr>
+												<tr>
+													<td><span style="font-size:9pt;"><strong><em><a href="res/protokoll/20061212_styrelseprotokoll.pdf">2006-12-12</a> </em></strong></span></td>
+												</tr>
+											</tbody>
+										</table>
+										<p><span style="font-size:9pt;">&#8203;</span></p>
+									</div>
+									<h3 class="h3">&#8203;</h3>
+									<h3 class="h3">&nbsp;</h3>
+								</div></div></td>
+							<td style="width:200px;"><div style="height:30px;"></div><div style="background-color:#e4f0ef;background-image:url(img/gre/Etikett-6-Soek.png);background-repeat:no-repeat;height:34px;margin-top:0;">
+								<div id="swc_SearchForm_IDFD2CFC8F721A40C4A3416586FD55F31C"><form id="SF1_form" method="post" action="Soekresultat.html" onsubmit="SFSendForm(&#39;SF1_input&#39;); return false;" class="sok">
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="sok"><input type="text" class="sokformular" id="SF1_input" style="width:110px;" /></td>
+		<td><img src="img/swspace.gif" height="1" width="14" style="border:none;" alt="" /></td>
+		<td valign="top" class="sok"><input id="SF1_img" type="image" src="img/gre/Etikett-7.png" style="height:25px;width:62;border:none;" alt="" /></td>
+	</tr>
+</table>
+</form>
+</div></div></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>&#8203;</p>
+			</div><img src="img/gre/Avdelare-2.png" title="" alt="" style="display:block;float:none;height:1px;margin-right:auto;margin-left:auto;width:949px;" /> 
+		</div>
+		<div style="background-color:#999999;display:block;float:none;height:32px;margin-right:auto;margin-left:auto;padding-top:3px;width:950px;">
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong>Ribe Samf&auml;llighetsf&ouml;rening, Ribegatan 77, 164 45 Kista, E-post: <a href="mailto:styrelsen@ribegatan.se"></a><a href="mailto:styrelsen@ribegatan.se">styrelsen[kanelbulle]ribegatan.se</a></strong></span></span></p>
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><strong>Uppdaterad: 2025-01-10. Copyright 2007 Ribe Samf&auml;llighetsf&ouml;rening.</strong></strong></span></span></strong></span></span></p>
+		</div>
+		<div style="display:block;float:none;height:20px;margin-right:auto;margin-left:auto;width:950px;">
+		</div>
+	</body>
+</html>

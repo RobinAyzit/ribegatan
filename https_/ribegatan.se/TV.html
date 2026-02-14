@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="Sitoo Web (www.sitoo.com)" />
+		<title>  TV  .</title>
+		<link rel="stylesheet" type="text/css" href="css/swglobal.css" />
+		<link rel="stylesheet" type="text/css" href="css/swStandard.css" />
+	<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+	function SFGetRef(str)
+	{
+		return document.all ? document.all[str] : document.getElementById(str);
+	}
+
+	function SFSwitchImage(strID, strFileName)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+
+	function SFSendForm(strID)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		var str = obj.value;
+		if(str.length > 0) {
+			location.href = "Soekresultat.html?r=" + parseInt(Math.random() * 10000) + "&words=" + encodeURIComponent(str) + "#" + encodeURIComponent(str);
+		}
+	}
+//]]>
+</script>
+	<script type="text/javascript">
+//<![CDATA[
+	function SitooOnLoad() {
+	{
+		var strWords = "";
+		if(typeof(SYS_SearchResultsGetWords) + "" != "undefined") {
+			strWords = SYS_SearchResultsGetWords();
+		} else {
+			strWords = decodeURIComponent(location.hash + "");
+			if(strWords.length > 1) strWords = strWords.substr(1);
+		}
+		var obj = SFGetRef("SF1_input");
+		if(typeof(obj) + "" != "undefined") {
+			obj.value = strWords;
+		}
+	}
+
+	}
+//]]>
+</script>
+</head>
+	<body style="background-image:url(res/Standard/bakgrund-3.gif);" onload="SitooOnLoad();">
+		<div style="background-color:#ffffff;background-image:url(res/Standard/filler1.png);display:block;float:none;height:110px;margin-top:0;margin-right:auto;margin-left:auto;width:950px;">
+			<div style="height:10px;">
+			</div><a href="Vaelkommen.html"></a><a href="index.html"><img src="res/Standard/ribehead.png" title="ribehead.png" alt="ribehead.png" style="display:block;float:none;margin-right:auto;margin-left:auto;" /></a> 
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID90A19F9933E448E9BA68B1B9A88BFE95">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+		<td id="MH1_0"><a href="index.html" onmouseover="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt.png&#39;);"><img id="MH1_0_img" src="img/gre/Knapp-1-Aktuellt.png" alt="Aktuellt" style="border:none;display:block;" /></a></td>
+		<td id="MH1_1"><a href="Vaelkommen.html" onmouseover="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen.png&#39;);"><img id="MH1_1_img" src="img/gre/Knapp-1-Vaelkommen.png" alt="V&auml;lkommen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_2"><a href="Samfaelligheten.html" onmouseover="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_2.png&#39;);"><img id="MH1_2_img" src="img/gre/Knapp-1-Samfaelligheten_2.png" alt="Samf&auml;lligheten" style="border:none;display:block;" /></a></td>
+		<td id="MH1_3"><a href="Kalendarium.html" onmouseover="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium.png&#39;);"><img id="MH1_3_img" src="img/gre/Knapp-1-Kalendarium.png" alt="Kalendarium" style="border:none;display:block;" /></a></td>
+		<td id="MH1_4"><a href="Husen.html" onmouseover="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen.png&#39;);"><img id="MH1_4_img" src="img/gre/Knapp-1-Husen.png" alt="Husen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_5"><a href="Indelning.html" onmouseover="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet.png&#39;);"><img id="MH1_5_img" src="img/gre/Knapp-1-Omraadet.png" alt="Omr&aring;det" style="border:none;display:block;" /></a></td>
+		<td id="MH1_6"><a href="Bilder-Historia.html" onmouseover="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia.png&#39;);"><img id="MH1_6_img" src="img/gre/Knapp-1-Bilder-Historia.png" alt="Bilder &amp; Historia" style="border:none;display:block;" /></a></td>
+		<td id="MH1_7"><a href="Laenkar.html" onmouseover="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar.png&#39;);"><img id="MH1_7_img" src="img/gre/Knapp-1-Laenkar.png" alt="L&auml;nkar" style="border:none;display:block;" /></a></td>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID70A0A6BABBB1496BB39E109077EDEA53">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="MH2_0"><a href="Aegarbyte.html" onmouseover="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-AegarbyteAegarfoeraendring_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-AegarbyteAegarfoeraendring.png&#39;);"><img id="MH2_0_img" src="img/gre/Knapp-2-AegarbyteAegarfoeraendring.png" alt="&Auml;garbyte/&Auml;garf&ouml;r&auml;ndring" style="border:none;display:block;" /></a></td>
+		<td id="MH2_1"><a href="Foereningen.html" onmouseover="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Foereningen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Foereningen.png&#39;);"><img id="MH2_1_img" src="img/gre/Knapp-2-Foereningen.png" alt="F&ouml;reningen" style="border:none;display:block;" /></a></td>
+		<td id="MH2_2"><a href="Styrelsen.html" onmouseover="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Styrelsen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_2_img&#39;, &#39;img/gre/Knapp-2-Styrelsen.png&#39;);"><img id="MH2_2_img" src="img/gre/Knapp-2-Styrelsen.png" alt="Styrelsen" style="border:none;display:block;" /></a></td>
+		<td id="MH2_3"><a href="Avgift.html" onmouseover="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Avgift_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_3_img&#39;, &#39;img/gre/Knapp-2-Avgift.png&#39;);"><img id="MH2_3_img" src="img/gre/Knapp-2-Avgift.png" alt="Avgift" style="border:none;display:block;" /></a></td>
+		<td id="MH2_4"><img id="MH2_4_img" src="img/gre/Knapp-2-TV-._2.png" alt="  TV  ." style="border:none;display:block;" /></td>
+		<td id="MH2_5"><a href="Bredband.html" onmouseover="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Bredband_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_5_img&#39;, &#39;img/gre/Knapp-2-Bredband.png&#39;);"><img id="MH2_5_img" src="img/gre/Knapp-2-Bredband.png" alt="Bredband" style="border:none;display:block;" /></a></td>
+		<td id="MH2_6"><a href="Foermaaner.html" onmouseover="MHSwitchImage(&#39;MH2_6_img&#39;, &#39;img/gre/Knapp-2-Foermaaner_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_6_img&#39;, &#39;img/gre/Knapp-2-Foermaaner.png&#39;);"><img id="MH2_6_img" src="img/gre/Knapp-2-Foermaaner.png" alt="F&ouml;rm&aring;ner" style="border:none;display:block;" /></a></td>
+		<td id="MH2_7"><a href="Blanketter.html" onmouseover="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Arkiv-Blanketter_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_7_img&#39;, &#39;img/gre/Knapp-2-Arkiv-Blanketter.png&#39;);"><img id="MH2_7_img" src="img/gre/Knapp-2-Arkiv-Blanketter.png" alt="Arkiv &amp; Blanketter" style="border:none;display:block;" /></a></td>
+		<td style="width:100%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID8CC5F0E929E142BC8DA7431217F2C63F"></div>
+		</div>
+		<div style="background-color:#e4f0ef;background-image:url(res/Standard/filler_text_background.png);display:block;float:none;margin-right:auto;margin-left:auto;vertical-align:middle;width:950px;">
+			<div style="background-image:url(res/Standard/filler_text_background.png);">
+				<table border="0" cellpadding="0" cellspacing="0" style="background-image:url(res/Standard/filler_text_background.png);margin-top:0;width:100%;">
+					<tbody>
+						<tr>
+							<td style="width:150px;"></td>
+							<td style="width:600px;"><div style="margin-top:10px;">
+								<div>
+									<h1 style="margin-left:40px;"><span style="font-size:20px;">KabelTV/ParabolTV</span></h1>
+									<h2 class="h2" style="margin-left:40px;text-align:left;">&#8203;</h2>
+									<h2 style="margin-left:40px;text-align:left;">KabelTV</h2>
+									<p style="margin-left:40px;text-align:left;">Medlemmarna har tillg&aring;ng till kabelTV fr&aring;n Com Hem.</p>
+									<p style="margin-left:40px;text-align:left;">Ansvarig f&ouml;r kabelTV inom v&aring;rt omr&aring;de framg&aring;r av lista p&aring; v&aring;ra anslagstavlor och p&aring; v&aring;r hemsida.</p>
+									<p style="margin-left:40px;text-align:left;"><span>I samf&auml;llighetsavgiften ing&aring;r Com Hems basutbud. Varje fastighets&auml;gare kan sj&auml;lv bekosta ett ut&ouml;kat abonnemang.</span></p>
+									<h2 style="margin-left:40px;text-align:left;">ParabolTV</h2>
+									<h3 class="h3" style="margin-left:40px;text-align:left;"><span style="font-family:arial;">Regler fr&aring;n Com Hem g&auml;llande parabolantenn</span></h3>
+									<p style="margin-left:40px;text-align:left;"><em>Ribe Samf&auml;llighetsf&ouml;rening &auml;r &auml;gare av kabelTV-n&auml;tet i v&aring;rt omr&aring;de. F&ouml;reningen har ett distributionsavtal med Com Hem. Det inneb&auml;r att varje fastighets&auml;gare m&aring;ste f&ouml;lja de riktlinjer som Com Hem l&auml;mnar.</em></p>
+									<p style="margin-left:40px;text-align:left;"><em>F&aring;r vi problem/st&ouml;rningar p&aring; kabelTV-n&auml;tet har Com Hem r&auml;tten att vidtaga &aring;tg&auml;rder mot st&ouml;rk&auml;llan. Om Com Hem lokaliserar en st&ouml;rning orsakad av en fastighets&auml;gare, debiteras Ribe Samf&auml;llighetsf&ouml;rening kostnaden f&ouml;r att &aring;tg&auml;rda st&ouml;rningen. Vid debiteringen redovisar Com Hem orsaken till st&ouml;rk&auml;llan och vilken fastighet som orsakat denna. Ribe Samf&auml;llighetsf&ouml;rening kommer d&auml;refter att debitera fastighets&auml;garen f&ouml;r kostnaden.</em></p>
+									<p style="margin-left:40px;text-align:left;">En orsak till st&ouml;rning kan vara att fastighets&auml;gare har kopplat ihop sin parabolantennsignal till Com Hems kabelTV-n&auml;t via antennkabeln till den egna TV-apparaten. V&aring;rt befintliga kabelTV-n&auml;t medger inte samtidig distribution av kabelTV- och parabolantennsignaler inom fastigheten. Om man blandar dessa signaler f&ouml;rst&ouml;r man Com Hems distribuerade signaler.</p>
+									<p style="margin-left:40px;text-align:left;">KabelTV-n&auml;tets signaler och parabolantennsignaler m&aring;st d&auml;rf&ouml;r kopplas in separat till den egna TV-apparaten. Detta kan g&ouml;ras till TV-apparatens SCART- alt. HDMI-ing&aring;ngar.</p>
+									<p style="margin-left:40px;text-align:left;">F&ouml;reningen har ett serviceavtal med Com Hem, vilket inneb&auml;r att du sj&auml;lv kan felanm&auml;la till Com Hem om du har mottagningsst&ouml;rningar p&aring; kabelTV-n&auml;tet, antingen via deras hemsida <a href="http://www.comhem.se/">www.comhem.se</a> (klicka p&aring; Kundservice) eller p&aring; telefon 0771-550000. Avtalet g&auml;ller &auml;ven f&ouml;r felanm&auml;lan av Com Hem&rsquo;s bredbandstj&auml;nst.</p>
+									<h2 style="margin-left:40px;text-align:left;">Anvisning f&ouml;r upps&auml;ttning av parabolantenn</h2>
+									<p style="margin-left:40px;text-align:left;">Parabolmontaget skall vara snyggt och ordentligt gjort och helst placerat p&aring; husv&auml;gg. Kabeldragningarna skall f&auml;stas med kabelkl&auml;mmor. </p>
+									<p style="margin-left:40px;text-align:left;">Parabolantenn f&aring;r endast s&auml;ttas p&aring; egen egendom och f&aring;r allts&aring; <strong>inte</strong> s&auml;ttas upp p&aring; samf&auml;llighetens &auml;gor, t.ex. bodarna. Planket mellan husen &auml;r gemensam egendom. Tala med din granne s&aring; att ni &auml;r &ouml;verens om placeringen av en parabolantenn. Man b&ouml;r inte heller m&aring;la en parabolantenn i i&ouml;gonenfallande f&auml;rger. </p>
+									<p style="margin-left:40px;text-align:left;">T&auml;nk p&aring; granns&auml;mjan &ndash; se till att din parabolantenn f&aring;r en s&aring; prydlig och diskret placering som m&ouml;jligt!</p>
+									<p style="margin-left:40px;text-align:left;">&#8203;</p>
+									<p style="margin-left:40px;text-align:left;">&#8203;</p>
+									<p style="margin-left:40px;text-align:left;">&#8203;</p>
+								</div></div></td>
+							<td style="width:200px;"><div style="height:30px;"></div><div style="background-color:#e4f0ef;background-image:url(img/gre/Etikett-6-Soek.png);background-repeat:no-repeat;height:34px;margin-top:0;">
+								<div id="swc_SearchForm_IDFD2CFC8F721A40C4A3416586FD55F31C"><form id="SF1_form" method="post" action="Soekresultat.html" onsubmit="SFSendForm(&#39;SF1_input&#39;); return false;" class="sok">
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="sok"><input type="text" class="sokformular" id="SF1_input" style="width:110px;" /></td>
+		<td><img src="img/swspace.gif" height="1" width="14" style="border:none;" alt="" /></td>
+		<td valign="top" class="sok"><input id="SF1_img" type="image" src="img/gre/Etikett-7.png" style="height:25px;width:62;border:none;" alt="" /></td>
+	</tr>
+</table>
+</form>
+</div></div></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>&#8203;</p>
+			</div><img src="img/gre/Avdelare-2.png" title="" alt="" style="display:block;float:none;height:1px;margin-right:auto;margin-left:auto;width:949px;" /> 
+		</div>
+		<div style="background-color:#999999;display:block;float:none;height:32px;margin-right:auto;margin-left:auto;padding-top:3px;width:950px;">
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong>Ribe Samf&auml;llighetsf&ouml;rening, Ribegatan 77, 164 45 Kista, E-post: <a href="mailto:styrelsen@ribegatan.se"></a><a href="mailto:styrelsen@ribegatan.se">styrelsen[kanelbulle]ribegatan.se</a></strong></span></span></p>
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><strong>Uppdaterad: 2025-01-10. Copyright 2007 Ribe Samf&auml;llighetsf&ouml;rening.</strong></strong></span></span></strong></span></span></p>
+		</div>
+		<div style="display:block;float:none;height:20px;margin-right:auto;margin-left:auto;width:950px;">
+		</div>
+	</body>
+</html>

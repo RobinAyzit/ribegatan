@@ -1,0 +1,44 @@
+HTTrack3.49-2+htsswf+htsjava launched on Thu, 12 Feb 2026 16:54:40 at https://ribegatan.se/ +*.pdf+*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%u%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "sv, en, *" https://ribegatan.se/ -O1 "D:\APPS By RobinAyzit\Ribegatan\Ribegatan NYASTE 2026-02-12\Ribegatan" +*.pdf+*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+16:55:20	Error: 	"Not Found" (404) at link https://ribegatan.se/Ribehoest1.jpg (from https://ribegatan.se/Vaelkommen.html)
+16:55:20	Error: 	"Not Found" (404) at link https://ribegatan.se/Ribehoest2.jpg (from https://ribegatan.se/Vaelkommen.html)
+16:55:20	Error: 	"Not Found" (404) at link https://ribegatan.se/Ribehoest3.jpg (from https://ribegatan.se/Vaelkommen.html)
+16:55:36	Error: 	"Not Found" (404) at link https://ribegatan.se/Ovrigakontaktpersoner.php (from https://ribegatan.se/Indelning.html)
+16:55:47	Error: 	"Not Found" (404) at link https://ribegatan.se/css/swRibeMeny.css (from https://ribegatan.se/Blanketter.html)
+16:55:47	Error: 	"Not Found" (404) at link https://ribegatan.se/css/swMedlemsinfo.css (from https://ribegatan.se/Blanketter.html)
+16:55:47	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=get&counterid=primo_default_counter (from https://ribegatan.se/Blanketter.html)
+16:55:47	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=inc&counterid= (from https://ribegatan.se/Blanketter.html)
+16:55:47	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php (from https://ribegatan.se/Blanketter.html)
+16:55:48	Error: 	"Not Found" (404) at link https://ribegatan.se/Ribegatan.css (from https://ribegatan.se/Blanketter.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/css/swLaenkar-Tips.css (from https://ribegatan.se/Foenster.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild7.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/byggstartribe.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild2.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild3.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild4.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild5.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/histo_bild6.png (from https://ribegatan.se/Byggstart-Ribe-Februari-1979.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/8_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/1_planritningribe3lekplats.jpg (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:54	Error: 	"Not Found" (404) at link https://ribegatan.se/2_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/3_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/4_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/5_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/6_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/7_lekplats3.png (from https://ribegatan.se/Bygge-lekplats.html)
+16:56:55	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=get&counterid=primo_default_counter (from https://ribegatan.se/Blanketter.html)
+16:56:55	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=inc&counterid= (from https://ribegatan.se/Blanketter.html)
+16:56:55	Warning: 	Retry after error 500 (Internal Server Error) at link https://ribegatan.se/admin/sd_primo_services.php (from https://ribegatan.se/Blanketter.html)
+16:56:55	Error: 	"Not Found" (404) at link https://ribegatan.se/css/swFoereningen.css (from https://ribegatan.se/Styrelseprotokoll.html)
+16:56:56	Error: 	"Internal Server Error" (500) after 2 retries at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=get&counterid=primo_default_counter (from https://ribegatan.se/Blanketter.html)
+16:56:56	Error: 	"Internal Server Error" (500) after 2 retries at link https://ribegatan.se/admin/sd_primo_services.php?type=counter&cmd=inc&counterid= (from https://ribegatan.se/Blanketter.html)
+16:56:56	Error: 	"Internal Server Error" (500) after 2 retries at link https://ribegatan.se/admin/sd_primo_services.php (from https://ribegatan.se/Blanketter.html)
+
+HTTrack Website Copier/3.49-2 mirror complete in 2 minutes 16 seconds : 563 links scanned, 529 files written (137154866 bytes overall) [136256828 bytes received at 1001888 bytes/sec], 1360420 bytes transferred using HTTP compression in 56 files, ratio 20%, 80.4 requests per connection
+(27 errors, 6 warnings, 0 messages)

@@ -1,0 +1,839 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+<!-- Mirrored from ribegatan.se/Bygge-lekplats.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Feb 2026 15:55:41 GMT -->
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="Sitoo Web (www.sitoo.com)" />
+		<title>Bygge lekplats</title>
+		<link rel="stylesheet" type="text/css" href="css/swglobal.css" />
+		<link rel="stylesheet" type="text/css" href="css/swStandard.css" />
+	<script type="text/javascript">
+//<![CDATA[
+	function MHGetRef(str)
+	{
+		if(document.all)
+			return document.all[str];
+		else
+			return document.getElementById(str);
+	}
+
+	function MHSwitchImage(strID, strFileName)
+	{
+		var obj = MHGetRef(strID);
+		if(obj == null || obj + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+//]]>
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+
+function IV1Res(strFN, strFNT, strN, strD, strA, nW, nH, nWT, nHT, nFS)
+{ 
+	this.Filename		= strFN;
+	this.FilenameThumb	= strFNT;
+	this.Name			= strN;
+	this.Description	= strD;
+	this.Alt			= strA;
+	this.Width			= nW;
+	this.Height			= nH;
+	this.WidthThumb		= nWT;
+	this.HeightThumb	= nHT;
+	this.Filesize		= nFS;
+
+}
+
+function IV1_C()
+{
+	this.arrRes					= new Array();
+	this.nTimeOutID				= 0;
+	this.bSlideShowIsPlaying	= false;
+	this.bInitDone				= false;
+	this.nImageCurIndex			= 0;
+
+	this.Init = function() 
+	{
+		this.nImageCurIndex = 0;
+		this.SwitchImage();
+		this.SlideShowPlay();		
+		this.bInitDone = true;
+		this.SendAll(this.nChannelID, 1, 0, "");
+		document.arrImgIV1 = new Array();
+		for(var i = 0; i < this.arrRes.length; ++i) {
+			document.arrImgIV1[(i * 2)]		= new Image(); document.arrImgIV1[(i * 2)].src		= this.arrRes[i].Filename;
+			document.arrImgIV1[(i * 2) + 1]	= new Image(); document.arrImgIV1[(i * 2) + 1].src	= this.arrRes[i].FilenameThumb;
+		}
+	}
+
+	this.SendAll = function(nChannel, nMsg, nParam, strParam)
+	{
+		if(document.ESSIC == null || typeof(document.ESSIC) == "undefined") return false
+	
+		if(!this.bInitDone && nMsg != 1) return false;
+		
+		for(var i = 0; i < document.ESSIC.length; ++i) {
+			if(document.ESSIC[i] && document.ESSIC[i].OnImageEvent) {
+				document.ESSIC[i].OnImageEvent(nChannel, nMsg, nParam, strParam);
+			}
+		}
+		return true;
+	}
+	this.ImageGetNum = function()			{ return this.arrRes.length; }
+	this.ImageGetIndex = function(nIndex)	{ return nIndex < 0 || nIndex >= this.arrRes.length ? null : this.arrRes[nIndex]; }
+	this.ImageGetCurIndex = function()		{ return this.nImageCurIndex; }
+	this.ImageGetCur = function()			{ return this.ImageGetIndex(this.nImageCurIndex); }
+	this.ImageGoto = function(nIndex, bStop)
+	{
+		if(nIndex < 0 || nIndex >= this.arrRes.length)
+			return false;
+
+		this.Show(this.IsViewModeOK());
+		var bRender = this.nImageCurIndex != nIndex;
+		this.nImageCurIndex = nIndex;
+		if(bRender) {
+			this.SwitchImage();
+		}
+		if(bStop) this.SlideShowStop();
+		this.SendAll(this.nChannelID, 100, nIndex, "");
+	}
+
+	this.ImageGotoRel = function(nSteps, bWrap, bStop)
+	{
+		var nNewIndex = this.nImageCurIndex + nSteps;
+
+		if(bWrap) {
+			if(nNewIndex < 0 || nNewIndex >= this.ImageGetNum() - 1) {
+				var bReverse = nSteps < 0;
+				nSteps = Math.abs(nSteps);
+				var nDiff = nSteps % this.ImageGetNum();
+
+				var nCur = this.nImageCurIndex;				
+				for(var i = 0; i < nDiff; ++i) {
+					nCur = bReverse ? --nCur : ++nCur;
+					if(nCur < 0)					nCur = this.ImageGetNum() - 1;
+					if(nCur >= this.ImageGetNum())	nCur = 0;
+				}
+				nNewIndex = nCur;
+			}
+		}
+		this.ImageGoto(nNewIndex, bStop);
+	}
+	
+	this.IsViewModeOK = function()
+	{
+		return true;
+	}
+	this.ImageSetViewMode = function(nMode)
+	{
+		this.nImageCurViewMode = nMode;
+		this.Show(this.IsViewModeOK());
+		this.SlideShowStop();
+		this.SendAll(this.nChannelID, 200, nMode, nMode == 0 ? "Overview" : "Single");
+	}
+	this.ImageGetViewMode = function()		{ return this.nImageCurViewMode; }
+	this.SlideShowIsWrapping = function()	{ return true; }
+
+
+	this.SlideShowPlay = function()
+	{
+		if(this.SlideShowIsPlaying()) return;
+		if(this.ImageGetCurIndex() == this.ImageGetNum() - 1 && this.ImageGetNum() > 1) {
+			this.ImageGoto(0);		
+		}
+		this.bSlideShowIsPlaying = true;
+		this.nTimeOutID = setTimeout(this.strObjName + ".SlideShowPlayer()", 3000);
+		this.SendAll(this.nChannelID, 300, 0, "");
+	}
+
+	this.SlideShowStop = function()
+	{
+		if(!this.SlideShowIsPlaying()) return;
+		this.bSlideShowIsPlaying = false;
+		clearTimeout(this.nTimeOutID);
+		this.nTimeOutID = 0;
+		this.SendAll(this.nChannelID, 301, 0, "");
+	}
+
+	this.SlideShowIsPlaying = function()		{ return this.bSlideShowIsPlaying; }
+
+	this.SlideShowPlayer = function()
+	{
+		this.ImageGotoRel(1, true, false);
+		this.nTimeOutID = setTimeout(this.strObjName + ".SlideShowPlayer()", 3000);
+	}
+
+	this.Show = function(bShow)
+	{
+		var objDOM = this.GetRef("IV1_container");
+		if(objDOM != null && typeof(objDOM) != "undefined" && typeof(objDOM.style) != "undefined") {
+			objDOM.style.display = bShow ? "" : "none";
+		}
+	}
+	
+	this.SwitchImage = function()
+	{
+		var objImage = this.ImageGetCur();
+		if(objImage == null || typeof(objImage) == "undefined") return;
+
+		var strImageID = "img_" + this.strObjName;
+		var obj = this.GetRef(strImageID)
+		
+		if(obj == null || typeof(obj) == "undefined") return;
+
+		obj.src				= objImage.Filename;
+		obj.width			= objImage.Width;
+		obj.height			= objImage.Height;
+		obj.alt				= objImage.Alt;
+		obj.title			= objImage.Alt;
+	}
+	this.GetRef = function(str)		{ return document.all ? document.all[str] : document.getElementById(str); }
+	this.LayerWrite = function(strLayer, strHtml)
+	{
+		if(document.all) {
+			if(document.all[strLayer] != null && typeof(document.all[strLayer]) != "undefined") document.all[strLayer].innerHTML = strHtml;
+		} else {
+			if(document.getElementById) {
+				document.getElementById(strLayer).innerHTML = strHtml;
+			} else {
+				var obj = document.layers[strLayer].document;
+				obj.open();
+				obj.write(strHtml);
+				obj.close();
+			}
+		}
+	}
+}
+	IV1 = new IV1_C();
+	IV1.arrRes[0] = new IV1Res("res/Bilderlekplats/8_lekplats3.png", "res/Bilderlekplats/8_lekplats3_2.png", "8_lekplats3.html", "Äntligen kan man få gunga.", "", 400, 300, 60, 40, 309652); 
+	IV1.arrRes[1] = new IV1Res("res/Bilderlekplats/1_planritningribe3lekplats.png", "res/Bilderlekplats/1_planritningribe3lekplats_2.png", "1_planritningribe3lekplats.html", "Det börjar med en planritning.", "", 400, 300, 60, 40, 13832); 
+	IV1.arrRes[2] = new IV1Res("res/Bilderlekplats/2_lekplats3.png", "res/Bilderlekplats/2_lekplats3_2.png", "2_lekplats3.html", "Gungan skall placeras.", "", 400, 300, 60, 40, 344473); 
+	IV1.arrRes[3] = new IV1Res("res/Bilderlekplats/3_lekplats3.png", "res/Bilderlekplats/3_lekplats3_2.png", "3_lekplats3.html", "Montering av lekhuset.", "", 400, 300, 60, 40, 359485); 
+	IV1.arrRes[4] = new IV1Res("res/Bilderlekplats/4_lekplats3.png", "res/Bilderlekplats/4_lekplats3_2.png", "4_lekplats3.html", "Lekhusets tur att placeras.", "", 400, 300, 60, 40, 336343); 
+	IV1.arrRes[5] = new IV1Res("res/Bilderlekplats/5_lekplats3.png", "res/Bilderlekplats/5_lekplats3_2.png", "5_lekplats3.html", "Arbetsredskap.", "", 400, 300, 60, 40, 331423); 
+	IV1.arrRes[6] = new IV1Res("res/Bilderlekplats/6_lekplats3.png", "res/Bilderlekplats/6_lekplats3_2.png", "6_lekplats3.html", "Väntan tills det blir klart.", "", 400, 300, 60, 40, 365540); 
+	IV1.arrRes[7] = new IV1Res("res/Bilderlekplats/7_lekplats3.png", "res/Bilderlekplats/7_lekplats3_2.png", "7_lekplats3.html", "Stockar och sandlåda skall fixas.", "", 400, 300, 60, 40, 338191); 
+	document.ESSIV1			= IV1;
+	IV1.nChannelID			= 1;
+	IV1.nImageCurViewMode	= 1;
+	IV1.strCompID			= "IV";
+	IV1.strObjName			= "IV1";
+	IV1.strImageText			= "";
+IV1.strFilter = "";
+//]]>
+</script>
+	<script type="text/javascript">
+//<![CDATA[
+		function ICRCBBtn(resImage, resImageOver, resImageInactive, strViewMode, strCommand)
+		{
+			this.resImage			= resImage;
+			this.resImageOver		= resImageOver;
+			this.resImageInactive	= resImageInactive;
+			this.strViewMode		= strViewMode;
+			this.strCommand			= strCommand;
+		}
+		function resource() {} 
+		function action()	{} 
+		function ICRCB1_C()
+		{
+			this.ChannelID		= 1;
+			this.ObjName		= "ICRCB1";
+			this.strCompName	= "swc_ImageControllerRemoteButtons_IDE1F4586050F8489B80BD26AC4A22C863";
+			this.bWrap			= false;
+
+			this.GetViewer = function()			{ return eval("document.ESSIV1"); }
+			this.Jump = function(nDistance)		{ this.GetViewer().ImageGotoRel(nDistance, this.bWrap, true); }
+			this.Goto = function(nIndex)		{ this.GetViewer().ImageGoto(nIndex, true); }
+			this.SetModeSingle = function()		{ this.GetViewer().ImageSetViewMode(1); }
+			this.SetModeOverview = function()	{ this.GetViewer().ImageSetViewMode(0);	}
+			this.GetRef = function(str)			{ return document.all ? document.all[str] : document.getElementById(str); }
+
+			this.OnImageEvent = function(nChannel, nMsg, nParam, strParam)
+			{
+				if(nChannel != this.ChannelID) return;
+				switch(nMsg) {
+					case 1:		//	1 == Init
+					{
+						this.bWrap = this.GetViewer().SlideShowIsWrapping();
+						break;
+					}
+					// Fall through...
+					case 100:	//	100 == IndexChanged
+					case 200:	//	200 == ViewModeChanged
+						break;
+					default:
+						return;
+				}
+				this.Render();
+			}
+
+			this.CheckViewModeOK = function(strViewMode)
+			{
+				var objViewer = this.GetViewer();
+				if(strViewMode.search(/playing/ig) != -1	&& !objViewer.SlideShowIsPlaying())		return false;
+				if(strViewMode.search(/stopped/ig) != -1	&& objViewer.SlideShowIsPlaying())		return false;
+				if(strViewMode.search(/overview/ig) != -1	&& objViewer.ImageGetViewMode() != 0)	return false;
+				if(strViewMode.search(/single/ig) != -1		&& objViewer.ImageGetViewMode() != 1)	return false;
+				return true;
+			}
+
+			this.GetCommandJS = function(strThis, strCommand, strDefault)
+			{
+				var objViewer = this.GetViewer();
+				switch(strCommand) {
+					case "Previous":		return strThis + ".Jump(-1)";
+				}
+				return strDefault;
+			}
+
+			this.IsActiveButton = function(objBtn)
+			{
+				var objViewer = this.GetViewer();
+			
+				switch(objBtn.strCommand) {
+					case "Previous":		return this.bWrap || objViewer.ImageGetCurIndex() > 0;
+				}
+				return false;
+			}
+
+			this.SwitchImage = function(strID, res)
+			{
+				var objImage = this.GetRef(strID);
+				if(objImage == null || typeof(objImage) == "undefined") return;
+				objImage.src	= res.Filename;
+				objImage.width	= res.Width;
+				objImage.height = res.Height;
+				objImage.alt	= res.Alt;
+				objImage.title	= res.Alt;
+			}
+
+			this.RenderItem = function(objBtn, nIndex) {
+				var strRet = "";
+				var strImageID = this.ObjName + "i" + nIndex;
+				if(this.IsActiveButton(objBtn)) {
+					var strAction = this.GetCommandJS(this.ObjName, objBtn.strCommand, "");
+					if(strAction != "") {
+						strRet += "<a href=\"javascript:" + strAction + ";\">";
+					}
+					strRet += "<img id=\"" + strImageID + "\" src=\"" + objBtn.resImage.Filename + "\" style=\"height:" + objBtn.resImage.Height + "px;width:" + objBtn.resImage.Width + ";border:none;display:block;\" alt=\"" + objBtn.resImage.Alt + "\" title=\"" + objBtn.resImage.Alt + "\"";
+					if(objBtn.resImageOver.Filename != null && typeof(objBtn.resImageOver.Filename) != "undefined")
+						strRet += " onmouseover=\"" + this.ObjName + ".SwitchImage('" + strImageID + "', " + this.ObjName + ".arrButtons[" + nIndex + "].resImageOver);\" onmouseout=\"" + this.ObjName + ".SwitchImage('" + strImageID + "', " + this.ObjName + ".arrButtons[" + nIndex + "].resImage);\"";
+					strRet += " />";
+					if(strAction != "") {
+						strRet += "</a>";
+					}
+				} else {
+					var objImage = objBtn.resImageInactive.Filename != null && typeof(objBtn.resImageInactive.Filename) != "undefined" ? objBtn.resImageInactive : objBtn.resImage;
+					strRet += "<img id=\"" + strImageID + "\" src=\"" + objImage.Filename + "\" style=\"height:" + objImage.Height + "px;width:" + objImage.Width + ";border:none;display:block;\" alt=\"" + objImage.Alt + "\" title=\"" + objImage.Alt + "\" />";
+				}
+				return strRet;
+			}
+			this.Render = function() {
+				var objViewer = this.GetViewer();
+				var nCurIndex = objViewer.ImageGetCurIndex();
+				var strRet = "";
+				var bFirstDone = false;
+
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"";
+				strRet += ">";
+				strRet += "<tr>";
+				var strItems = "";
+				for(var i = 0; i < this.arrButtons.length; ++i) {
+					var objBtn = this.arrButtons[i];
+					if(!this.CheckViewModeOK(objBtn.strViewMode)) continue;
+
+					strItems += "<td>" + this.RenderItem(objBtn, i) + "</td>";
+					bFirstDone = true;
+				}
+
+				var strSpace = "<td style=\"width:100%;\"><img src=\"img/swspace.gif\" width=\"1\" height=\"1\" style=\"border:none;display:block;\" alt=\"\" /></td>";
+				var strStart = "";
+				var strEnd = "";
+				strRet += strSpace + strStart + strItems + strEnd ;
+				strRet += "</tr>";
+				strRet += "</table>";
+				objViewer.LayerWrite(this.strCompName, strRet);		
+			}
+		}
+
+		var ICRCB1 = new ICRCB1_C();
+		if(document.ESSIC == null || typeof(document.ESSIC) == "undefined") document.ESSIC = new Array();
+		document.ESSIC[document.ESSIC.length]			= ICRCB1;
+		ICRCB1.arrButtons						= new Array();
+		ICRCB1.arrActions						= new Array();
+
+		btn1a = new resource(); btn1a.Filename = "res/Standard/arrow_1_btn_prev.png"; btn1a.Alt = ""; btn1a.Width = 33; btn1a.Height = 32;
+		btn1b = new resource(); 
+		btn1c = new resource(); 
+		ICRCB1.arrButtons[ICRCB1.arrButtons.length] = new ICRCBBtn(btn1a, btn1b, btn1c, "Always", "Previous");
+		var a1 = new action(); a1.TargetEnabled = false; a1.Href = "javascript:void(0);"; a1.HrefJS = "void(0)"; ICRCB1.arrActions[ICRCB1.arrActions.length] = a1;
+		var a2 = new action(); a2.TargetEnabled = false; a2.Href = "javascript:void(0);"; a2.HrefJS = "void(0)"; ICRCB1.arrActions[ICRCB1.arrActions.length] = a2;
+		var a3 = new action(); a3.TargetEnabled = false; a3.Href = "javascript:void(0);"; a3.HrefJS = "void(0)"; ICRCB1.arrActions[ICRCB1.arrActions.length] = a3;
+//]]>
+	</script>
+	<script type="text/javascript">
+//<![CDATA[
+		function ICT1_C()
+		{
+			this.ChannelID		= 1;
+			this.strObjName		= "ICT1";
+			this.strCompName	= "swc_ImageControllerText_IDA9E0B3041BEA40DCAF32BEB2BE9A076B";
+
+			this.GetViewer = function()			{ return eval("document.ESSIV1"); }
+			this.SetModeSingle = function()		{ this.GetViewer().ImageSetViewMode(1); }
+	
+			this.OnImageEvent = function(nChannel, nMsg, nParam, strParam)
+			{
+				if(nChannel != this.ChannelID) return;
+				switch(nMsg) {
+					case 1:		//	1 == Init
+						break;
+					case 100:	//	100 == IndexChanged
+					case 200:	//	200 == ViewModeChanged
+						break;
+					default:
+						return;
+				}
+				this.Render();
+			}
+
+			this.GetCommandJS = function(strThis, strCommand, strDefault)
+			{
+				return strDefault;
+			}
+
+			this.Render = function() {
+				var objViewer = this.GetViewer();
+				var nCurIndex = objViewer.ImageGetCurIndex();
+				
+				var objImage = objViewer.ImageGetCur();
+				if(objImage == null || typeof(objImage) == "undefined") {
+					objViewer.LayerWrite(this.strCompName, "");
+					return;
+				}
+				var strText = "#description";
+				strText = strText.replace(/#count/ig,		objViewer.ImageGetCurIndex() + 1);
+				strText = strText.replace(/#maxcount/ig,	objViewer.ImageGetNum());
+				strText = strText.replace(/#page/ig,		Math.floor(objViewer.ImageGetCurIndex() / 5) + 1);
+				strText = strText.replace(/#maxpage/ig,		Math.ceil(objViewer.ImageGetNum() / 5));
+				strText = strText.replace(/#filename/ig,	objImage.Filename);
+				strText = strText.replace(/#title/ig,		objImage.Name);
+				strText = strText.replace(/#alt/ig,			objImage.Alt);
+				strText = strText.replace(/#description/ig,	objImage.Description);
+				strText = strText.replace(/#width/ig,		objImage.Width);
+				strText = strText.replace(/#height/ig,		objImage.Height);
+				strText = strText.replace(/#filesize/ig,	objImage.Filesize);
+				strText = strText.replace(/\r/ig,			"");
+				strText = strText.replace(/\n/ig,			"<br />");
+
+				var strRet = "";
+				strRet += "<p style=\"text-align:center;\">";
+				strRet += strText;	
+				strRet += "</p>\r\n";
+
+				objViewer.LayerWrite(this.strCompName, strRet);		
+			}
+		}
+
+		var ICT1 = new ICT1_C();
+		if(document.ESSIC == null || typeof(document.ESSIC) == "undefined") document.ESSIC = new Array();
+		document.ESSIC[document.ESSIC.length] = ICT1;
+//]]>
+	</script>
+	<script type="text/javascript">
+//<![CDATA[
+		function ICRCB2_C()
+		{
+			this.ChannelID		= 1;
+			this.ObjName		= "ICRCB2";
+			this.strCompName	= "swc_ImageControllerRemoteButtons_ID1AAB40B469ED4088BD550D6B1A2186CF";
+			this.bWrap			= false;
+
+			this.GetViewer = function()			{ return eval("document.ESSIV1"); }
+			this.Jump = function(nDistance)		{ this.GetViewer().ImageGotoRel(nDistance, this.bWrap, true); }
+			this.Goto = function(nIndex)		{ this.GetViewer().ImageGoto(nIndex, true); }
+			this.SetModeSingle = function()		{ this.GetViewer().ImageSetViewMode(1); }
+			this.SetModeOverview = function()	{ this.GetViewer().ImageSetViewMode(0);	}
+			this.GetRef = function(str)			{ return document.all ? document.all[str] : document.getElementById(str); }
+
+			this.OnImageEvent = function(nChannel, nMsg, nParam, strParam)
+			{
+				if(nChannel != this.ChannelID) return;
+				switch(nMsg) {
+					case 1:		//	1 == Init
+					{
+						this.bWrap = this.GetViewer().SlideShowIsWrapping();
+						break;
+					}
+					// Fall through...
+					case 100:	//	100 == IndexChanged
+					case 200:	//	200 == ViewModeChanged
+						break;
+					default:
+						return;
+				}
+				this.Render();
+			}
+
+			this.CheckViewModeOK = function(strViewMode)
+			{
+				var objViewer = this.GetViewer();
+				if(strViewMode.search(/playing/ig) != -1	&& !objViewer.SlideShowIsPlaying())		return false;
+				if(strViewMode.search(/stopped/ig) != -1	&& objViewer.SlideShowIsPlaying())		return false;
+				if(strViewMode.search(/overview/ig) != -1	&& objViewer.ImageGetViewMode() != 0)	return false;
+				if(strViewMode.search(/single/ig) != -1		&& objViewer.ImageGetViewMode() != 1)	return false;
+				return true;
+			}
+
+			this.GetCommandJS = function(strThis, strCommand, strDefault)
+			{
+				var objViewer = this.GetViewer();
+				switch(strCommand) {
+					case "Next":			return strThis + ".Jump(1)";
+				}
+				return strDefault;
+			}
+
+			this.IsActiveButton = function(objBtn)
+			{
+				var objViewer = this.GetViewer();
+			
+				switch(objBtn.strCommand) {
+					case "Next":			return this.bWrap || objViewer.ImageGetCurIndex() < objViewer.ImageGetNum() - 1;
+				}
+				return false;
+			}
+
+			this.SwitchImage = function(strID, res)
+			{
+				var objImage = this.GetRef(strID);
+				if(objImage == null || typeof(objImage) == "undefined") return;
+				objImage.src	= res.Filename;
+				objImage.width	= res.Width;
+				objImage.height = res.Height;
+				objImage.alt	= res.Alt;
+				objImage.title	= res.Alt;
+			}
+
+			this.RenderItem = function(objBtn, nIndex) {
+				var strRet = "";
+				var strImageID = this.ObjName + "i" + nIndex;
+				if(this.IsActiveButton(objBtn)) {
+					var strAction = this.GetCommandJS(this.ObjName, objBtn.strCommand, "");
+					if(strAction != "") {
+						strRet += "<a href=\"javascript:" + strAction + ";\">";
+					}
+					strRet += "<img id=\"" + strImageID + "\" src=\"" + objBtn.resImage.Filename + "\" style=\"height:" + objBtn.resImage.Height + "px;width:" + objBtn.resImage.Width + ";border:none;display:block;\" alt=\"" + objBtn.resImage.Alt + "\" title=\"" + objBtn.resImage.Alt + "\"";
+					if(objBtn.resImageOver.Filename != null && typeof(objBtn.resImageOver.Filename) != "undefined")
+						strRet += " onmouseover=\"" + this.ObjName + ".SwitchImage('" + strImageID + "', " + this.ObjName + ".arrButtons[" + nIndex + "].resImageOver);\" onmouseout=\"" + this.ObjName + ".SwitchImage('" + strImageID + "', " + this.ObjName + ".arrButtons[" + nIndex + "].resImage);\"";
+					strRet += " />";
+					if(strAction != "") {
+						strRet += "</a>";
+					}
+				} else {
+					var objImage = objBtn.resImageInactive.Filename != null && typeof(objBtn.resImageInactive.Filename) != "undefined" ? objBtn.resImageInactive : objBtn.resImage;
+					strRet += "<img id=\"" + strImageID + "\" src=\"" + objImage.Filename + "\" style=\"height:" + objImage.Height + "px;width:" + objImage.Width + ";border:none;display:block;\" alt=\"" + objImage.Alt + "\" title=\"" + objImage.Alt + "\" />";
+				}
+				return strRet;
+			}
+			this.Render = function() {
+				var objViewer = this.GetViewer();
+				var nCurIndex = objViewer.ImageGetCurIndex();
+				var strRet = "";
+				var bFirstDone = false;
+
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"";
+				strRet += ">";
+				strRet += "<tr>";
+				var strItems = "";
+				for(var i = 0; i < this.arrButtons.length; ++i) {
+					var objBtn = this.arrButtons[i];
+					if(!this.CheckViewModeOK(objBtn.strViewMode)) continue;
+
+					strItems += "<td>" + this.RenderItem(objBtn, i) + "</td>";
+					bFirstDone = true;
+				}
+
+				var strSpace = "<td style=\"width:100%;\"><img src=\"img/swspace.gif\" width=\"1\" height=\"1\" style=\"border:none;display:block;\" alt=\"\" /></td>";
+				var strStart = "";
+				var strEnd = "";
+				strRet += strStart + strItems + strEnd + strSpace;
+				strRet += "</tr>";
+				strRet += "</table>";
+				objViewer.LayerWrite(this.strCompName, strRet);		
+			}
+		}
+
+		var ICRCB2 = new ICRCB2_C();
+		if(document.ESSIC == null || typeof(document.ESSIC) == "undefined") document.ESSIC = new Array();
+		document.ESSIC[document.ESSIC.length]			= ICRCB2;
+		ICRCB2.arrButtons						= new Array();
+		ICRCB2.arrActions						= new Array();
+
+		btn1a = new resource(); btn1a.Filename = "res/Standard/arrow_1_btn_next.png"; btn1a.Alt = ""; btn1a.Width = 32; btn1a.Height = 32;
+		btn1b = new resource(); 
+		btn1c = new resource(); 
+		ICRCB2.arrButtons[ICRCB2.arrButtons.length] = new ICRCBBtn(btn1a, btn1b, btn1c, "Always", "Next");
+		var a1 = new action(); a1.TargetEnabled = false; a1.Href = "javascript:void(0);"; a1.HrefJS = "void(0)"; ICRCB2.arrActions[ICRCB2.arrActions.length] = a1;
+		var a2 = new action(); a2.TargetEnabled = false; a2.Href = "javascript:void(0);"; a2.HrefJS = "void(0)"; ICRCB2.arrActions[ICRCB2.arrActions.length] = a2;
+		var a3 = new action(); a3.TargetEnabled = false; a3.Href = "javascript:void(0);"; a3.HrefJS = "void(0)"; ICRCB2.arrActions[ICRCB2.arrActions.length] = a3;
+//]]>
+	</script>
+	<script type="text/javascript">
+//<![CDATA[
+		function ICTP1_C(strObjName, strCompName, nChannelID)
+		{
+			this.ChannelID		= nChannelID;
+			this.strCompName	= strCompName;
+			this.bWrap			= false;
+
+			this.GetViewer = function()		{ return eval("document.ESSIV" + this.ChannelID); }
+			this.SetModeSingle = function()	{ this.GetViewer().ImageSetViewMode(1); }
+			this.Goto = function(nIndex)	{ this.GetViewer().ImageGoto(nIndex, true);	}
+			this.OnImageEvent = function(nChannel, nMsg, nParam, strParam)
+			{
+				if(nChannel != this.ChannelID) return;
+				switch(nMsg) {
+					case 1:		//	1 == Init
+					{
+						this.bWrap = this.GetViewer().SlideShowIsWrapping();
+						var i1 = new Image(); i1.src = "img/swspace.gif";
+						break;
+					}
+					case 100:	//	100 == IndexChanged
+					case 200:	//	200 == ViewModeChanged
+						break;
+					default:
+						return;
+				}
+				this.Render();
+			}
+
+			this.Render = function() {
+				var objViewer = this.GetViewer();
+				var nCurIndex = objViewer.ImageGetCurIndex();
+				var strRet = "";
+
+				var nMax	= Math.min(8, objViewer.ImageGetNum());
+				if(nMax <= 0) return;
+				var nCols	= Math.min(20, nMax);
+				var nRows	= Math.ceil(nMax / nCols);
+				var arrMatrix = new Array();
+				for(var y = 0; y < nRows; ++y) {
+					arrMatrix[y] = new Array();
+					for(var x = 0; x < nCols; ++x) {
+						arrMatrix[y][x] = "<img src=\"img/swspace.gif\" width=\"1\" height=\"1\" alt=\"\" style=\"border:none;display:block;\" />";
+					}
+				}
+				for(var i = 0; i < nMax; ++i) {
+					var nX = i % nCols;
+					var nY = Math.floor(i / nCols);
+					var nIndex = (Math.floor(objViewer.ImageGetCurIndex() / 5) * 5) + (0) + i;
+					if(this.bWrap) {
+						if(nIndex < 0)							nIndex = nIndex + objViewer.ImageGetNum();
+						if(nIndex >= objViewer.ImageGetNum())	nIndex = nIndex - objViewer.ImageGetNum();
+					}
+
+					var strThumb = "";
+					var bSel = objViewer.ImageGetCurIndex() == nIndex;
+					var strFNCorners	= ""; 
+					var strFNHorz		= ""; 
+					var strFNVert		= ""; 
+
+					var nW = objViewer.ImageGetCur().WidthThumb + 0;
+					var nH = objViewer.ImageGetCur().HeightThumb + 0;
+					if(nIndex < 0 || nIndex >= objViewer.ImageGetNum()) {
+						strThumb += "<img src=\"img/swspace.gif\" id=\"img_ICTP1\" width=\"" + nW + "\" height=\"" + nH + "\" alt=\"\" style=\"border:none;display:block;\" />";
+					} else {
+						var objImage = objViewer.ImageGetIndex(nIndex);
+						var strTNFN		= objImage.FilenameThumb;
+						var nTNW		= objImage.WidthThumb;
+						var nTNH		= objImage.HeightThumb;
+						var strTNFNSel	= objImage.FilenameThumb;
+						var nTNWSel		= objImage.WidthThumb;
+						var nTNHSel		= objImage.HeightThumb;
+
+						var strImageID = "ICTP1" + "I" + nIndex;
+						strThumb += "<a href=\"javascript:ICTP1.Goto(" + nIndex + ");\">";
+						strThumb += "<img src=\"" + (bSel ? strTNFNSel : strTNFN) + "\" id=\"" + strImageID + "\" width=\"" + (bSel ? nTNWSel : nTNW) + "\" height=\"" + (bSel ? nTNHSel : nTNH) + "\" alt=\"" + objImage.Alt + "\" title=\"" + objImage.Alt + "\" style=\"border:none;display:block;\"";
+						strThumb += " />";
+						strThumb += "</a>";
+					}
+					arrMatrix[nY][nX] = strThumb;
+				}
+
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr><td align=\"center\">";
+				strRet += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
+				for(var y = 0; y < arrMatrix.length; ++y) {
+					strRet += "<tr>";
+					for(var x = 0; x < arrMatrix[y].length; ++x) {
+						strRet += "<td";
+						strRet += " style=\"";
+						if(x < (arrMatrix[y].length - 1)) {
+							strRet += "padding-right:2px;";
+						}
+						if(x > 0) {
+							strRet += "padding-left:3px;";
+						}
+						if(y < (arrMatrix.length - 1)) {
+							strRet += "padding-bottom:2px;";
+						}
+						if(y > 0) {
+							strRet += "padding-top:3px;";
+						}
+						strRet += "\"";
+						strRet += ">" + arrMatrix[y][x] + "</td>";
+					}
+					strRet += "</tr>";
+				}
+				strRet += "</table>";
+				strRet += "</td></tr></table>";
+				objViewer.LayerWrite(this.strCompName, strRet);
+			}
+		}
+
+		var ICTP1 = new ICTP1_C("ICTP1", "swc_ImageControllerThumbnailPanel_ID9176B403230548FC9AD45412379205AC", 1);
+		if(document.ESSIC == null || typeof(document.ESSIC) == "undefined") document.ESSIC = new Array();
+		document.ESSIC[document.ESSIC.length]			= ICTP1;
+//]]>
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+	function SFGetRef(str)
+	{
+		return document.all ? document.all[str] : document.getElementById(str);
+	}
+
+	function SFSwitchImage(strID, strFileName)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		obj.src = strFileName;
+	}
+
+	function SFSendForm(strID)
+	{
+		var obj = SFGetRef(strID);
+		if(typeof(obj) + "" == "undefined") return;
+		var str = obj.value;
+		if(str.length > 0) {
+			location.href = "Soekresultat2a3b.html?r=" + parseInt(Math.random() * 10000) + "&words=" + encodeURIComponent(str) + "#" + encodeURIComponent(str);
+		}
+	}
+//]]>
+</script>
+	<script type="text/javascript">
+//<![CDATA[
+	function SitooOnLoad() {
+IV1.Show(IV1.IsViewModeOK());
+IV1.Init();
+	{
+		var strWords = "";
+		if(typeof(SYS_SearchResultsGetWords) + "" != "undefined") {
+			strWords = SYS_SearchResultsGetWords();
+		} else {
+			strWords = decodeURIComponent(location.hash + "");
+			if(strWords.length > 1) strWords = strWords.substr(1);
+		}
+		var obj = SFGetRef("SF1_input");
+		if(typeof(obj) + "" != "undefined") {
+			obj.value = strWords;
+		}
+	}
+
+	}
+//]]>
+</script>
+</head>
+	<body style="background-image:url(res/Standard/bakgrund-3.gif);" onload="SitooOnLoad();">
+		<div style="background-color:#ffffff;background-image:url(res/Standard/filler1.png);display:block;float:none;height:110px;margin-top:0;margin-right:auto;margin-left:auto;width:950px;">
+			<div style="height:10px;">
+			</div><a href="Vaelkommen.html"></a><a href="index-2.html"><img src="res/Standard/ribehead.png" title="ribehead.png" alt="ribehead.png" style="display:block;float:none;margin-right:auto;margin-left:auto;" /></a> 
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID90A19F9933E448E9BA68B1B9A88BFE95">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+		<td id="MH1_0"><a href="index-2.html" onmouseover="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_0_img&#39;, &#39;img/gre/Knapp-1-Aktuellt.png&#39;);"><img id="MH1_0_img" src="img/gre/Knapp-1-Aktuellt.png" alt="Aktuellt" style="border:none;display:block;" /></a></td>
+		<td id="MH1_1"><a href="Vaelkommen.html" onmouseover="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_1_img&#39;, &#39;img/gre/Knapp-1-Vaelkommen.png&#39;);"><img id="MH1_1_img" src="img/gre/Knapp-1-Vaelkommen.png" alt="V&auml;lkommen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_2"><a href="Samfaelligheten.html" onmouseover="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_2_img&#39;, &#39;img/gre/Knapp-1-Samfaelligheten.png&#39;);"><img id="MH1_2_img" src="img/gre/Knapp-1-Samfaelligheten.png" alt="Samf&auml;lligheten" style="border:none;display:block;" /></a></td>
+		<td id="MH1_3"><a href="Kalendarium.html" onmouseover="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_3_img&#39;, &#39;img/gre/Knapp-1-Kalendarium.png&#39;);"><img id="MH1_3_img" src="img/gre/Knapp-1-Kalendarium.png" alt="Kalendarium" style="border:none;display:block;" /></a></td>
+		<td id="MH1_4"><a href="Husen.html" onmouseover="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_4_img&#39;, &#39;img/gre/Knapp-1-Husen.png&#39;);"><img id="MH1_4_img" src="img/gre/Knapp-1-Husen.png" alt="Husen" style="border:none;display:block;" /></a></td>
+		<td id="MH1_5"><a href="Indelning.html" onmouseover="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_5_img&#39;, &#39;img/gre/Knapp-1-Omraadet.png&#39;);"><img id="MH1_5_img" src="img/gre/Knapp-1-Omraadet.png" alt="Omr&aring;det" style="border:none;display:block;" /></a></td>
+		<td id="MH1_6"><a href="Bilder-Historia.html" onmouseover="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_6_img&#39;, &#39;img/gre/Knapp-1-Bilder-Historia_2.png&#39;);"><img id="MH1_6_img" src="img/gre/Knapp-1-Bilder-Historia_2.png" alt="Bilder &amp; Historia" style="border:none;display:block;" /></a></td>
+		<td id="MH1_7"><a href="Laenkar.html" onmouseover="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH1_7_img&#39;, &#39;img/gre/Knapp-1-Laenkar.png&#39;);"><img id="MH1_7_img" src="img/gre/Knapp-1-Laenkar.png" alt="L&auml;nkar" style="border:none;display:block;" /></a></td>
+		<td style="width:50%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID70A0A6BABBB1496BB39E109077EDEA53">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="MH2_0"><a href="Bilder-Historia.html" onmouseover="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-Historik_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_0_img&#39;, &#39;img/gre/Knapp-2-Historik.png&#39;);"><img id="MH2_0_img" src="img/gre/Knapp-2-Historik.png" alt="Historik" style="border:none;display:block;" /></a></td>
+		<td id="MH2_1"><a href="Byggstart-Ribe-Februari-1979.html" onmouseover="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Byggstart-Ribe-Februari-1979_3.png&#39;);" onmouseout="MHSwitchImage(&#39;MH2_1_img&#39;, &#39;img/gre/Knapp-2-Byggstart-Ribe-Februari-1979.png&#39;);"><img id="MH2_1_img" src="img/gre/Knapp-2-Byggstart-Ribe-Februari-1979.png" alt="Byggstart Ribe, Februari 1979" style="border:none;display:block;" /></a></td>
+		<td id="MH2_2"><img id="MH2_2_img" src="img/gre/Knapp-2-Bygge-lekplats_2.png" alt="Bygge lekplats" style="border:none;display:block;" /></td>
+		<td style="width:100%;"><img src="img/swspace.gif" width="1" height="1" style="border:none;display:block;" alt="" /></td>
+	</tr>
+</table>
+</div>
+		</div>
+		<div style="background-image:url(res/Standard/filler_ligth_background-2.png);display:block;float:none;height:41px;margin-right:auto;margin-left:auto;width:950px;">
+			<div id="swc_MenuHorizontal_ID8CC5F0E929E142BC8DA7431217F2C63F"></div>
+		</div>
+		<div style="background-color:#e4f0ef;background-image:url(res/Standard/filler_text_background.png);display:block;float:none;margin-right:auto;margin-left:auto;vertical-align:middle;width:950px;">
+			<div style="background-image:url(res/Standard/filler_text_background.png);">
+				<table border="0" cellpadding="0" cellspacing="0" style="background-image:url(res/Standard/filler_text_background.png);margin-top:0;width:100%;">
+					<tbody>
+						<tr>
+							<td style="width:150px;"></td>
+							<td style="width:600px;"><div style="margin-top:10px;">
+								<div id="swc_ImageViewer_IDF610C2E4AB424FDAB8F4020394832C9D"><table border="0" cellpadding="0" cellspacing="0" width="100%" id="IV1_container" style="display:none;"><tr><td align="center"><div style="display:inline-block;"><table border="0" cellpadding="0" cellspacing="0">
+<tr><td><a href="javascript:IV1.SlideShowPlay();"><img src="res/Bilderlekplats/8_lekplats3.png" id="img_IV1" width="400" height="300" alt="" title="" style="border:none;display:block;" /></a></td></tr>
+</table>
+</div>
+</td></tr></table></div>
+								<p>&#8203;</p>
+								<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+									<tbody>
+										<tr>
+											<td style="width:20%;"><div id="swc_ImageControllerRemoteButtons_IDE1F4586050F8489B80BD26AC4A22C863"></div></td>
+											<td style="vertical-align:middle;width:60%;"><div id="swc_ImageControllerText_IDA9E0B3041BEA40DCAF32BEB2BE9A076B"></div></td>
+											<td style="width:20%;"><div id="swc_ImageControllerRemoteButtons_ID1AAB40B469ED4088BD550D6B1A2186CF"></div></td>
+										</tr>
+									</tbody>
+								</table>
+								<p></p>
+								<div style="background-image:url(res/Standard/bakgrund-2.gif);margin-top:5px;padding-top:10px;padding-bottom:10px;vertical-align:middle;">
+									<div id="swc_ImageControllerThumbnailPanel_ID9176B403230548FC9AD45412379205AC"></div>
+								</div>
+								<p>&#8203;</p></div></td>
+							<td style="width:200px;"><div style="height:30px;"></div><div style="background-color:#e4f0ef;background-image:url(img/gre/Etikett-6-Soek.png);background-repeat:no-repeat;height:34px;margin-top:0;">
+								<div id="swc_SearchForm_IDFD2CFC8F721A40C4A3416586FD55F31C"><form id="SF1_form" method="post" action="https://ribegatan.se/Soekresultat.html" onsubmit="SFSendForm(&#39;SF1_input&#39;); return false;" class="sok">
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="sok"><input type="text" class="sokformular" id="SF1_input" style="width:110px;" /></td>
+		<td><img src="img/swspace.gif" height="1" width="14" style="border:none;" alt="" /></td>
+		<td valign="top" class="sok"><input id="SF1_img" type="image" src="img/gre/Etikett-7.png" style="height:25px;width:62;border:none;" alt="" /></td>
+	</tr>
+</table>
+</form>
+</div></div></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>&#8203;</p>
+			</div><img src="img/gre/Avdelare-2.png" title="" alt="" style="display:block;float:none;height:1px;margin-right:auto;margin-left:auto;width:949px;" /> 
+		</div>
+		<div style="background-color:#999999;display:block;float:none;height:32px;margin-right:auto;margin-left:auto;padding-top:3px;width:950px;">
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong>Ribe Samf&auml;llighetsf&ouml;rening, Ribegatan 77, 164 45 Kista, E-post: <a href="mailto:styrelsen@ribegatan.se"></a><a href="mailto:styrelsen@ribegatan.se">styrelsen[kanelbulle]ribegatan.se</a></strong></span></span></p>
+			<p class="underrubrik" style="margin-top:2px;margin-bottom:2px;text-align:center;"><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><span style="color:#ffffff;"><span style="font-size:8pt;"><strong><strong>Uppdaterad: 2025-01-10. Copyright 2007 Ribe Samf&auml;llighetsf&ouml;rening.</strong></strong></span></span></strong></span></span></p>
+		</div>
+		<div style="display:block;float:none;height:20px;margin-right:auto;margin-left:auto;width:950px;">
+		</div>
+	</body>
+
+<!-- Mirrored from ribegatan.se/Bygge-lekplats.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Feb 2026 15:55:47 GMT -->
+</html>

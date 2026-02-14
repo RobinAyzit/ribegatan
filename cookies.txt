@@ -1,0 +1,4 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+ribegatan.se	TRUE	/	FALSE	1999999999	PHPSESSID	802396427e6c26b808590ea5aa15fc18
+
