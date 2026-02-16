@@ -11,9 +11,25 @@ const contentRoutes = require('./routes/content');
 const mediaRoutes = require('./routes/media');
 
 // Middleware
-// CORS för lokal utveckling
+// CORS - tillåt både lokal utveckling och GitHub Pages
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:5500',
+  'https://robinayzit.github.io'
+];
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5500'],
+  origin: function(origin, callback) {
+    // Tillåt requests utan origin (som Postman eller server-to-server)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
