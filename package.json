@@ -1,0 +1,31 @@
+{
+  "name": "ribegatan-admin-cms",
+  "version": "1.0.0",
+  "description": "Admin CMS system for ribegatan.se",
+  "main": "admin/api/server.js",
+  "scripts": {
+    "start": "node admin/api/server.js",
+    "dev": "nodemon admin/api/server.js",
+    "test": "echo \"Error: no test command specified\" && exit 1"
+  },
+  "keywords": [
+    "cms",
+    "admin",
+    "ribegatan"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

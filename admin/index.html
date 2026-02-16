@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Ribegatan.se</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login View -->
+    <div id="login-view" class="view">
+        <div class="login-container">
+            <h1>Admin Panel</h1>
+            <p class="subtitle">Ribegatan.se</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Användarnamn</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Lösenord</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <div id="login-error" class="error-message"></div>
+                <button type="submit" class="btn btn-primary">Logga in</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Admin View -->
+    <div id="admin-view" class="view hidden">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <h1>Admin Panel</h1>
+                <div class="header-actions">
+                    <span id="user-info"></span>
+                    <button id="logout-btn" class="btn btn-secondary">Logga ut</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+            <button class="nav-btn" data-view="posts">Inlägg</button>
+            <button class="nav-btn" data-view="pages">Sidor</button>
+            <button class="nav-btn" data-view="media">Media</button>
+            <button class="nav-btn" data-view="styles">Färger</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="content-section active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="posts-count">0</h3>
+                        <p>Inlägg</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="pages-count">0</h3>
+                        <p>Sidor</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="images-count">0</h3>
+                        <p>Bilder</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts View -->
+            <div id="posts-view" class="content-section">
+                <div class="section-header">
+                    <h2>Inlägg</h2>
+                    <button id="new-post-btn" class="btn btn-primary">Nytt inlägg</button>
+                </div>
+                <div id="posts-list" class="items-list"></div>
+                <div id="post-editor" class="editor hidden">
+                    <h3 id="post-editor-title">Nytt inlägg</h3>
+                    <form id="post-form">
+                        <div class="form-group">
+                            <label for="post-title">Titel</label>
+                            <input type="text" id="post-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-category">Kategori</label>
+                            <input type="text" id="post-category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-content">Innehåll</label>
+                            <textarea id="post-content" rows="10" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Spara</button>
+                            <button type="button" id="cancel-post-btn" class="btn btn-secondary">Avbryt</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pages View -->
+            <div id="pages-view" class="content-section">
+                <h2>Sidor</h2>
+                <div id="pages-list" class="items-list"></div>
+            </div>
+
+            <!-- Media View -->
+            <div id="media-view" class="content-section">
+                <div class="section-header">
+                    <h2>Media</h2>
+                    <button id="upload-image-btn" class="btn btn-primary">Ladda upp bild</button>
+                </div>
+                <div id="upload-form" class="upload-area hidden">
+                    <form id="image-upload-form">
+                        <div class="form-group">
+                            <label for="image-directory">Katalog</label>
+                            <select id="image-directory">
+                                <option value="img">img</option>
+                                <option value="res">res</option>
+                                <option value="assets">assets</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image-file">Välj bild</label>
+                            <input type="file" id="image-file" accept="image/jpeg,image/png,image/gif,image/webp" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Ladda upp</button>
+                            <button type="button" id="cancel-upload-btn" class="btn btn-secondary">Avbryt</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="images-grid" class="images-grid"></div>
+            </div>
+
+            <!-- Styles View -->
+            <div id="styles-view" class="content-section">
+                <h2>Färger</h2>
+                <p class="info-text">Ändra färger för olika element på webbplatsen</p>
+                <div id="styles-editor">
+                    <div class="form-group">
+                        <label for="style-selector">CSS Selector</label>
+                        <input type="text" id="style-selector" placeholder="t.ex. .header">
+                    </div>
+                    <div class="form-group">
+                        <label for="style-property">Egenskap</label>
+                        <select id="style-property">
+                            <option value="color">color (textfärg)</option>
+                            <option value="background-color">background-color</option>
+                            <option value="border-color">border-color</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="style-value">Färg</label>
+                        <input type="color" id="style-value">
+                    </div>
+                    <button id="apply-style-btn" class="btn btn-primary">Tillämpa</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/content-editor.js"></script>
+    <script src="js/media-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

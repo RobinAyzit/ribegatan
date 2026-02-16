@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "admin/api"
+  ],
+  "ext": "js,json",
+  "ignore": [
+    "admin/api/data/*.json",
+    "admin/api/data/backups/*",
+    "node_modules"
+  ],
+  "exec": "node admin/api/server.js",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
