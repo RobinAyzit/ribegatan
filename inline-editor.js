@@ -6,7 +6,7 @@
 const InlineEditor = {
   isLoggedIn: false,
   token: null,
-  API_URL: 'http://localhost:3000/api',
+  API_URL: 'https://ribegatan.onrender.com/api',
   
   /**
    * Initiera inline editor
@@ -716,6 +716,8 @@ const InlineEditor = {
    * Visa notifikation
    */
   showNotification(message, type = 'info') {
+    if (!this.isLoggedIn) return;
+    
     const notification = document.createElement('div');
     const colors = {
       success: '#10b981',
