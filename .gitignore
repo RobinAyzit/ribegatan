@@ -38,3 +38,7 @@ admin/api/data/backups/*
 # Build files
 dist/
 build/
+
+# Large zip files
+ribegatan.zip
+*.zip
