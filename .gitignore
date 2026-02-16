@@ -27,7 +27,7 @@ Thumbs.db
 *~
 
 # Sensitive data
-admin/api/data/users.json
+# admin/api/data/users.json (temporarily allowing for deployment)
 admin/api/data/backups/*
 !admin/api/data/backups/.gitkeep
 
