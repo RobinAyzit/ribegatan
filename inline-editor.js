@@ -311,7 +311,7 @@ const InlineEditor = {
       
       setTimeout(() => {
         postElement.remove();
-        this.showNotification('Inlägg raderat. Klicka "Spara ändringar" för att spara.', 'success');
+        // Notifikation borttagen - användaren ser redan att inlägget försvinner
       }, 300);
     }
   },
