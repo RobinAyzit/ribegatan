@@ -121,7 +121,7 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - **Property 11: Bildersättning behåller filnamn**
     - **Validerar: Krav 5.8**
 
-  - [~] 5.5 Implementera bildoptimering
+  - [ ] 5.5 Implementera bildoptimering
     - Konfigurera sharp för bildkomprimering
     - Implementera automatisk storleksanpassning vid uppladdning
     - _Krav: 5.3, 5.4_
@@ -144,11 +144,11 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Testa radering med användningsvarning
     - _Krav: 5.3, 5.6_
 
-- [~] 6. Checkpoint - Verifiera backend-funktionalitet
+- [ ] 6. Checkpoint - Verifiera backend-funktionalitet
   - Säkerställ att alla tester passerar, fråga användaren om frågor uppstår.
 
-- [~] 7. Backend: Säkerhetskopieringsmodul
-  - [~] 7.1 Implementera BackupService
+- [ ] 7. Backend: Säkerhetskopieringsmodul
+  - [ ] 7.1 Implementera BackupService
     - Skapa backup-service.js med funktioner för säkerhetskopiering
     - Implementera createBackup för att kopiera alla filer
     - Implementera listBackups för att visa tillgängliga säkerhetskopior
@@ -163,14 +163,14 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - **Property 13: Återställning från säkerhetskopia är idempotent**
     - **Validerar: Krav 7.6**
 
-  - [~] 7.4 Implementera backup routes
+  - [ ] 7.4 Implementera backup routes
     - Skapa GET /api/backup/list endpoint
     - Skapa POST /api/backup/create endpoint
     - Skapa POST /api/backup/restore/:id endpoint
     - _Krav: 7.1, 7.4, 7.5_
 
-- [~] 8. Backend: Versionshanteringsmodul
-  - [~] 8.1 Implementera versionshantering i ContentService
+- [ ] 8. Backend: Versionshanteringsmodul
+  - [ ] 8.1 Implementera versionshantering i ContentService
     - Lägg till getPageHistory funktion
     - Lägg till restoreVersion funktion
     - Implementera automatisk versionsskapande vid siduppdatering
@@ -184,12 +184,12 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - **Property 15: Återställning av version återställer innehåll**
     - **Validerar: Krav 10.5**
 
-  - [~] 8.4 Implementera version routes
+  - [ ] 8.4 Implementera version routes
     - Skapa GET /api/content/pages/:filename/history endpoint
     - Skapa POST /api/content/pages/:filename/restore/:versionId endpoint
     - _Krav: 10.2, 10.4_
 
-- [~] 9. Backend: Express server och felhantering
+- [ ] 9. Backend: Express server och felhantering
   - [x] 9.1 Implementera huvudserver
     - Skapa server.js med Express-konfiguration
     - Konfigurera CORS för lokal utveckling
@@ -203,12 +203,12 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Lägg till logging för fel
     - _Krav: Alla felhanteringskrav_
 
-  - [~] 9.3 Implementera rate limiting
+  - [ ] 9.3 Implementera rate limiting
     - Konfigurera express-rate-limit för API-endpoints
     - Implementera särskild rate limiting för login-endpoint
     - _Krav: Säkerhet_
 
-- [~] 10. Checkpoint - Verifiera komplett backend
+- [ ] 10. Checkpoint - Verifiera komplett backend
   - Säkerställ att alla tester passerar, fråga användaren om frågor uppstår.
 
 - [x] 11. Frontend: Admin panel struktur
@@ -224,7 +224,7 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Lägg till animationer och övergångar
     - _Krav: 9.1, 9.2, 9.3, 9.5_
 
-- [~] 12. Frontend: Autentisering
+- [ ] 12. Frontend: Autentisering
   - [x] 12.1 Implementera login-vy
     - Skapa inloggningsformulär i admin panel
     - Implementera formulärvalidering
@@ -242,7 +242,7 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Implementera "kom ihåg mig"-funktionalitet
     - _Krav: 1.5, 1.6_
 
-- [~] 13. Frontend: Innehållseditor
+- [ ] 13. Frontend: Innehållseditor
   - [x] 13.1 Implementera inläggslista
     - Skapa vy för att visa alla inlägg
     - Implementera hämtning av inlägg från API
@@ -271,37 +271,37 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Lägg till felhantering och användarfeedback
     - _Krav: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7_
 
-- [~] 14. Frontend: Sidredigering
-  - [~] 14.1 Implementera sidlista
+- [ ] 14. Frontend: Sidredigering
+  - [ ] 14.1 Implementera sidlista
     - Skapa vy för att visa alla statiska sidor
     - Implementera hämtning av sidor från API
     - Organisera sidor efter kategori
     - _Krav: 6.2, 6.4_
 
-  - [~] 14.2 Implementera sidredigerare
+  - [ ] 14.2 Implementera sidredigerare
     - Skapa redigeringsvy för HTML-sidor
     - Implementera code editor med syntax highlighting (t.ex. CodeMirror)
     - Lägg till förhandsvisning av sida
     - _Krav: 3.2, 3.5_
 
-  - [~] 14.3 Implementera siduppdatering
+  - [ ] 14.3 Implementera siduppdatering
     - Implementera sparning av sidändringar via API
     - Lägg till automatisk sparning (draft)
     - _Krav: 3.3, 3.6_
 
-- [~] 15. Frontend: Färghantering
-  - [~] 15.1 Implementera färgväljare
+- [ ] 15. Frontend: Färghantering
+  - [ ] 15.1 Implementera färgväljare
     - Skapa vy för att välja textelement
     - Implementera färgväljare (color picker)
     - Visa nuvarande färg för valt element
     - _Krav: 4.1, 4.2_
 
-  - [~] 15.2 Implementera färguppdatering
+  - [ ] 15.2 Implementera färguppdatering
     - Implementera realtidsförhandsvisning av färgändringar
     - Implementera sparning av färgändringar via API
     - _Krav: 4.3, 4.4, 4.5_
 
-- [~] 16. Frontend: Mediahantering
+- [ ] 16. Frontend: Mediahantering
   - [x] 16.1 Implementera bildgalleri
     - Skapa vy för att visa alla bilder
     - Implementera grid-layout för bilder
@@ -327,20 +327,20 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Lägg till felhantering och användarfeedback
     - _Krav: 5.1, 5.2, 5.5, 5.7, 5.8_
 
-- [~] 17. Frontend: Säkerhetskopiering och versionshantering
-  - [~] 17.1 Implementera säkerhetskopieringsvy
+- [ ] 17. Frontend: Säkerhetskopiering och versionshantering
+  - [ ] 17.1 Implementera säkerhetskopieringsvy
     - Skapa vy för att visa säkerhetskopior
     - Lägg till funktion för att skapa ny säkerhetskopia
     - Implementera återställning från säkerhetskopia med bekräftelse
     - _Krav: 7.1, 7.4, 7.5_
 
-  - [~] 17.2 Implementera versionshistorik
+  - [ ] 17.2 Implementera versionshistorik
     - Skapa vy för att visa versionshistorik för sidor
     - Implementera förhandsvisning av tidigare versioner
     - Lägg till funktion för att återställa version
     - _Krav: 10.2, 10.3, 10.4_
 
-- [~] 18. Frontend: Huvudapplikation
+- [ ] 18. Frontend: Huvudapplikation
   - [x] 18.1 Implementera app.js
     - Skapa admin/js/app.js som huvudapplikation
     - Implementera routing mellan olika vyer
@@ -354,45 +354,45 @@ Denna implementationsplan beskriver stegen för att bygga ett komplett admin CMS
     - Lägg till snabblänkar till vanliga funktioner
     - _Krav: 6.5_
 
-- [~] 19. Integration och polish
-  - [~] 19.1 Integrera alla komponenter
+- [ ] 19. Integration och polish
+  - [ ] 19.1 Integrera alla komponenter
     - Koppla samman alla frontend-komponenter
     - Säkerställ att all navigation fungerar
     - Testa alla API-anrop
     - _Krav: Alla_
 
-  - [~] 19.2 Implementera användarfeedback
+  - [ ] 19.2 Implementera användarfeedback
     - Lägg till toast-notifikationer för framgång/fel
     - Implementera laddningsindikatorer för API-anrop
     - Lägg till bekräftelsedialoger för destruktiva åtgärder
     - _Krav: Alla_
 
-  - [~] 19.3 Optimera prestanda
+  - [ ] 19.3 Optimera prestanda
     - Implementera lazy loading för bilder
     - Lägg till caching för API-svar
     - Optimera CSS och JavaScript
     - _Krav: Prestandakrav_
 
-- [~] 20. Dokumentation och deployment
-  - [~] 20.1 Skapa README
+- [ ] 20. Dokumentation och deployment
+  - [ ] 20.1 Skapa README
     - Dokumentera installation och konfiguration
     - Lägg till instruktioner för lokal körning
     - Dokumentera API-endpoints
     - _Krav: 8.3, 8.5_
 
-  - [~] 20.2 Skapa deployment-guide
+  - [ ] 20.2 Skapa deployment-guide
     - Dokumentera hur man deployar till GitHub Pages
     - Lägg till instruktioner för produktionsmiljö
     - Dokumentera säkerhetsöverväganden
     - _Krav: 8.3_
 
-  - [~] 20.3 Skapa användarmanual
+  - [ ] 20.3 Skapa användarmanual
     - Dokumentera hur man använder admin-panelen
     - Lägg till skärmdumpar och exempel
     - Dokumentera vanliga problem och lösningar
     - _Krav: Alla_
 
-- [~] 21. Final checkpoint - Komplett systemtest
+- [ ] 21. Final checkpoint - Komplett systemtest
   - Säkerställ att alla tester passerar, fråga användaren om frågor uppstår.
 
 ## Noteringar

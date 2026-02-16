@@ -28,12 +28,12 @@ const InlineEditor = {
   addLoginButton() {
     const loginBtn = document.createElement('div');
     loginBtn.id = 'admin-login-btn';
-    loginBtn.innerHTML = this.isLoggedIn ? '🔓 Admin' : '🔒 Logga in';
+    loginBtn.innerHTML = this.isLoggedIn ? '🔓 Admin' : '🔒 Admin';
     loginBtn.style.cssText = `
       position: fixed;
       top: 10px;
       right: 10px;
-      background: #2563eb;
+      background: #1f2937;
       color: white;
       padding: 10px 20px;
       border-radius: 5px;
