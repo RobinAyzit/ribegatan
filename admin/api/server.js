@@ -11,12 +11,13 @@ const contentRoutes = require('./routes/content');
 const mediaRoutes = require('./routes/media');
 
 // Middleware
-// CORS - tillåt både lokal utveckling och GitHub Pages
+// CORS - tillåt både lokal utveckling, GitHub Pages och Render
 const allowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:5500',
-  'https://robinayzit.github.io'
+  'https://robinayzit.github.io',
+  'https://ribegatan.onrender.com'
 ];
 
 app.use(cors({
