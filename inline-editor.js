@@ -302,6 +302,9 @@ const InlineEditor = {
    * Radera inlägg
    */
   deletePost(postElement) {
+    // Dubbelkolla att användaren är inloggad
+    if (!this.isLoggedIn) return;
+    
     if (confirm('Är du säker på att du vill radera detta inlägg?')) {
       postElement.style.opacity = '0.5';
       postElement.style.transition = 'opacity 0.3s';
@@ -716,6 +719,7 @@ const InlineEditor = {
    * Visa notifikation
    */
   showNotification(message, type = 'info') {
+    // Visa bara notifikationer om användaren är inloggad
     if (!this.isLoggedIn) return;
     
     const notification = document.createElement('div');
