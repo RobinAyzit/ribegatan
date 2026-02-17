@@ -28,6 +28,9 @@ const InlineEditor = {
     
     // Lägg till login-knapp i hörnet
     this.addLoginButton();
+    
+    // Lägg till context menu för textfärg
+    this.addTextColorContextMenu();
   },
   
   /**
@@ -760,6 +763,102 @@ const InlineEditor = {
       notification.style.transition = 'opacity 0.3s';
       setTimeout(() => notification.remove(), 300);
     }, 3000);
+  },
+  
+  /**
+   * Lägg till context menu för textfärg
+   */
+  addTextColorContextMenu() {
+    document.addEventListener('contextmenu', (e) => {
+      // Bara visa om användaren är inloggad
+      if (!this.isLoggedIn) return;
+      
+      // Kolla om det finns markerad text
+      const selection = window.getSelection();
+      if (!selection || selection.toString().trim() === '') return;
+      
+      e.preventDefault();
+      this.showTextColorMenu(e.clientX, e.clientY, selection);
+    });
+  },
+  
+  /**
+   * Visa färgmeny för markerad text
+   */
+  showTextColorMenu(x, y, selection) {
+    // Ta bort befintlig meny
+    const existingMenu = document.getElementById('text-color-menu');
+    if (existingMenu) existingMenu.remove();
+    
+    const menu = document.createElement('div');
+    menu.id = 'text-color-menu';
+    menu.innerHTML = `
+      <div style="position: fixed; left: ${x}px; top: ${y}px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; z-index: 10002; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: Arial, sans-serif;">
+        <div style="font-weight: 600; margin-bottom: 8px; font-size: 13px; color: #64748b;">Ändra textfärg:</div>
+        <button class="color-btn" data-color="#dc2626" style="display: block; width: 100%; text-align: left; padding: 8px 12px; border: none; background: none; cursor: pointer; font-size: 13px; border-radius: 4px; margin-bottom: 2px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+          <span style="display: inline-block; width: 16px; height: 16px; background: #dc2626; border-radius: 3px; margin-right: 8px; vertical-align: middle;"></span>
+          Röd
+        </button>
+        <button class="color-btn" data-color="#eab308" style="display: block; width: 100%; text-align: left; padding: 8px 12px; border: none; background: none; cursor: pointer; font-size: 13px; border-radius: 4px; margin-bottom: 2px;" onmouseover="this.style.background='#fefce8'" onmouseout="this.style.background='none'">
+          <span style="display: inline-block; width: 16px; height: 16px; background: #eab308; border-radius: 3px; margin-right: 8px; vertical-align: middle;"></span>
+          Gul
+        </button>
+        <button class="color-btn" data-color="#2c5530" style="display: block; width: 100%; text-align: left; padding: 8px 12px; border: none; background: none; cursor: pointer; font-size: 13px; border-radius: 4px; margin-bottom: 2px;" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='none'">
+          <span style="display: inline-block; width: 16px; height: 16px; background: #2c5530; border-radius: 3px; margin-right: 8px; vertical-align: middle;"></span>
+          Grön
+        </button>
+        <button class="color-btn" data-color="#2563eb" style="display: block; width: 100%; text-align: left; padding: 8px 12px; border: none; background: none; cursor: pointer; font-size: 13px; border-radius: 4px; margin-bottom: 2px;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='none'">
+          <span style="display: inline-block; width: 16px; height: 16px; background: #2563eb; border-radius: 3px; margin-right: 8px; vertical-align: middle;"></span>
+          Blå
+        </button>
+        <button class="color-btn" data-color="" style="display: block; width: 100%; text-align: left; padding: 8px 12px; border: none; background: none; cursor: pointer; font-size: 13px; border-radius: 4px; color: #64748b;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='none'">
+          <span style="display: inline-block; width: 16px; height: 16px; background: transparent; border: 1px solid #cbd5e1; border-radius: 3px; margin-right: 8px; vertical-align: middle;"></span>
+          Ta bort färg
+        </button>
+      </div>
+    `;
+    
+    document.body.appendChild(menu);
+    
+    // Lägg till click-handlers för färgknapparna
+    menu.querySelectorAll('.color-btn').forEach(btn => {
+      btn.onclick = () => {
+        const color = btn.getAttribute('data-color');
+        this.applyColorToSelection(selection, color);
+        menu.remove();
+      };
+    });
+    
+    // Stäng meny vid klick utanför
+    setTimeout(() => {
+      document.addEventListener('click', () => menu.remove(), { once: true });
+    }, 100);
+  },
+  
+  /**
+   * Applicera färg på markerad text
+   */
+  applyColorToSelection(selection, color) {
+    if (!selection.rangeCount) return;
+    
+    const range = selection.getRangeAt(0);
+    const span = document.createElement('span');
+    
+    if (color) {
+      span.style.color = color;
+    }
+    
+    try {
+      range.surroundContents(span);
+    } catch (e) {
+      // Om surroundContents failar (t.ex. vid delvis markering), använd en annan metod
+      const fragment = range.extractContents();
+      span.appendChild(fragment);
+      range.insertNode(span);
+    }
+    
+    // Rensa markeringen
+    selection.removeAllRanges();
   }
 };
 
