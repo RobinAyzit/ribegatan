@@ -323,6 +323,9 @@ const InlineEditor = {
     if (!this.isLoggedIn) return;
     
     if (confirm('Är du säker på att du vill radera detta inlägg?')) {
+      // Spara state innan radering
+      this.saveState();
+      
       postElement.style.opacity = '0.5';
       postElement.style.transition = 'opacity 0.3s';
       
@@ -338,6 +341,9 @@ const InlineEditor = {
    */
   editText(element) {
     const originalText = element.textContent;
+    
+    // Spara state innan redigering
+    this.saveState();
     
     element.setAttribute('contenteditable', 'true');
     element.focus();
@@ -435,6 +441,9 @@ const InlineEditor = {
       const file = e.target.files[0];
       if (!file) return;
       
+      // Spara state innan bildändring
+      this.saveState();
+      
       // Visa förhandsvisning
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -464,6 +473,9 @@ const InlineEditor = {
     const imgSrc = button.getAttribute('data-img-src');
     
     if (confirm('Är du säker på att du vill ta bort denna bild?')) {
+      // Spara state innan bildradering
+      this.saveState();
+      
       const img = document.querySelector(`img[src="${imgSrc}"]`);
       if (img) {
         img.style.opacity = '0.3';
@@ -667,6 +679,9 @@ const InlineEditor = {
       // Hitta Aktuellt-sektionen
       const aktueltContent = document.querySelector('.aktuellt-content');
       if (aktueltContent) {
+        // Spara state innan nytt inlägg skapas
+        this.saveState();
+        
         // Lägg till inlägget längst upp
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = postHTML;
