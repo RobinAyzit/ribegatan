@@ -7,6 +7,9 @@ const InlineEditor = {
   isLoggedIn: false,
   token: null,
   API_URL: 'https://ribegatan.onrender.com/api',
+  undoStack: [],
+  redoStack: [],
+  maxUndoSteps: 50,
   
   /**
    * Initiera inline editor
@@ -31,6 +34,9 @@ const InlineEditor = {
     
     // Lägg till context menu för textfärg
     this.addTextColorContextMenu();
+    
+    // Lägg till keyboard shortcuts för undo/redo
+    this.addUndoRedoShortcuts();
   },
   
   /**
@@ -841,6 +847,9 @@ const InlineEditor = {
   applyColorToSelection(selection, color) {
     if (!selection.rangeCount) return;
     
+    // Spara nuvarande tillstånd för undo
+    this.saveState();
+    
     const range = selection.getRangeAt(0);
     const span = document.createElement('span');
     
@@ -859,6 +868,84 @@ const InlineEditor = {
     
     // Rensa markeringen
     selection.removeAllRanges();
+  },
+  
+  /**
+   * Spara nuvarande tillstånd för undo
+   */
+  saveState() {
+    const state = document.body.innerHTML;
+    this.undoStack.push(state);
+    
+    // Begränsa stack-storlek
+    if (this.undoStack.length > this.maxUndoSteps) {
+      this.undoStack.shift();
+    }
+    
+    // Rensa redo stack när ny ändring görs
+    this.redoStack = [];
+  },
+  
+  /**
+   * Lägg till keyboard shortcuts för undo/redo
+   */
+  addUndoRedoShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // Bara om användaren är inloggad
+      if (!this.isLoggedIn) return;
+      
+      // Ctrl+Z eller Cmd+Z för undo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        this.undo();
+      }
+      
+      // Ctrl+Y eller Ctrl+Shift+Z eller Cmd+Shift+Z för redo
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+        e.preventDefault();
+        this.redo();
+      }
+    });
+  },
+  
+  /**
+   * Ångra senaste ändring
+   */
+  undo() {
+    if (this.undoStack.length === 0) return;
+    
+    // Spara nuvarande tillstånd till redo stack
+    this.redoStack.push(document.body.innerHTML);
+    
+    // Återställ föregående tillstånd
+    const previousState = this.undoStack.pop();
+    document.body.innerHTML = previousState;
+    
+    // Återinitiera admin-funktioner efter DOM-ändring
+    this.addLoginButton();
+    if (this.isLoggedIn) {
+      this.addAdminToolbar();
+    }
+  },
+  
+  /**
+   * Gör om ångrad ändring
+   */
+  redo() {
+    if (this.redoStack.length === 0) return;
+    
+    // Spara nuvarande tillstånd till undo stack
+    this.undoStack.push(document.body.innerHTML);
+    
+    // Återställ redo tillstånd
+    const nextState = this.redoStack.pop();
+    document.body.innerHTML = nextState;
+    
+    // Återinitiera admin-funktioner efter DOM-ändring
+    this.addLoginButton();
+    if (this.isLoggedIn) {
+      this.addAdminToolbar();
+    }
   }
 };
 
