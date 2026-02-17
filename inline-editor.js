@@ -12,6 +12,14 @@ const InlineEditor = {
    * Initiera inline editor
    */
   init() {
+    // Ta bort alla gamla notifikationer som kan vara kvar i DOM
+    const oldNotifications = document.querySelectorAll('[style*="position: fixed"][style*="bottom: 20px"]');
+    oldNotifications.forEach(notif => {
+      if (notif.textContent.includes('Inlägg raderat') || notif.textContent.includes('Spara ändringar')) {
+        notif.remove();
+      }
+    });
+    
     // Kolla om användaren är inloggad
     this.token = localStorage.getItem('adminToken');
     if (this.token) {
