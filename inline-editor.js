@@ -175,6 +175,9 @@ const InlineEditor = {
    * Aktivera redigeringsläge
    */
   enableEditMode() {
+    // Spara initial state när admin-läge aktiveras
+    this.saveState();
+    
     // Lägg till admin toolbar
     this.addAdminToolbar();
     
@@ -927,7 +930,10 @@ const InlineEditor = {
    * Ångra senaste ändring
    */
   undo() {
-    if (this.undoStack.length === 0) return;
+    if (this.undoStack.length === 0) {
+      this.showNotification('Inget att ångra', 'info');
+      return;
+    }
     
     // Spara nuvarande tillstånd till redo stack
     this.redoStack.push(document.body.innerHTML);
@@ -936,18 +942,25 @@ const InlineEditor = {
     const previousState = this.undoStack.pop();
     document.body.innerHTML = previousState;
     
-    // Återinitiera admin-funktioner efter DOM-ändring
+    // Återinitiera alla admin-funktioner efter DOM-ändring
     this.addLoginButton();
     if (this.isLoggedIn) {
       this.addAdminToolbar();
+      this.makeTextEditable();
+      this.enableImageEditing();
     }
+    
+    this.showNotification('Ändring ångrad', 'success');
   },
   
   /**
    * Gör om ångrad ändring
    */
   redo() {
-    if (this.redoStack.length === 0) return;
+    if (this.redoStack.length === 0) {
+      this.showNotification('Inget att göra om', 'info');
+      return;
+    }
     
     // Spara nuvarande tillstånd till undo stack
     this.undoStack.push(document.body.innerHTML);
@@ -956,11 +969,15 @@ const InlineEditor = {
     const nextState = this.redoStack.pop();
     document.body.innerHTML = nextState;
     
-    // Återinitiera admin-funktioner efter DOM-ändring
+    // Återinitiera alla admin-funktioner efter DOM-ändring
     this.addLoginButton();
     if (this.isLoggedIn) {
       this.addAdminToolbar();
+      this.makeTextEditable();
+      this.enableImageEditing();
     }
+    
+    this.showNotification('Ändring återställd', 'success');
   }
 };
 
