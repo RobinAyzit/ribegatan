@@ -175,9 +175,6 @@ const InlineEditor = {
    * Aktivera redigeringsläge
    */
   enableEditMode() {
-    // Spara initial state när admin-läge aktiveras
-    this.saveState();
-    
     // Lägg till admin toolbar
     this.addAdminToolbar();
     
@@ -343,10 +340,12 @@ const InlineEditor = {
    * Redigera text
    */
   editText(element) {
-    const originalText = element.textContent;
+    // Om elementet redan är i redigeringsläge, gör ingenting
+    if (element.hasAttribute('contenteditable') && element.getAttribute('contenteditable') === 'true') {
+      return;
+    }
     
-    // Spara state innan redigering
-    this.saveState();
+    const originalText = element.textContent;
     
     element.setAttribute('contenteditable', 'true');
     element.focus();
@@ -359,7 +358,9 @@ const InlineEditor = {
       element.style.outline = '1px dashed transparent';
       element.style.background = '';
       
+      // Spara state EFTER redigering om texten ändrades
       if (element.textContent !== originalText) {
+        this.saveState();
         this.showNotification('Text ändrad. Klicka "Spara ändringar" för att spara.', 'info');
       }
     };
@@ -911,6 +912,12 @@ const InlineEditor = {
     document.addEventListener('keydown', (e) => {
       // Bara om användaren är inloggad
       if (!this.isLoggedIn) return;
+      
+      // Ignorera om användaren skriver i ett redigerbart fält
+      const activeElement = document.activeElement;
+      if (activeElement && activeElement.getAttribute('contenteditable') === 'true') {
+        return;
+      }
       
       // Ctrl+Z eller Cmd+Z för undo
       if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
