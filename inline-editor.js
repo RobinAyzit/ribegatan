@@ -59,7 +59,17 @@ const InlineEditor = {
       font-family: Arial, sans-serif;
       font-size: 14px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     `;
+    
+    // Mobilanpassning
+    if (window.innerWidth <= 768) {
+      loginBtn.style.padding = '8px 15px';
+      loginBtn.style.fontSize = '13px';
+      loginBtn.style.top = '5px';
+      loginBtn.style.right = '5px';
+    }
     
     loginBtn.onclick = () => {
       if (this.isLoggedIn) {
@@ -191,17 +201,18 @@ const InlineEditor = {
   addAdminToolbar() {
     if (document.getElementById('admin-toolbar')) return;
     
+    const isMobile = window.innerWidth <= 768;
     const toolbar = document.createElement('div');
     toolbar.id = 'admin-toolbar';
     toolbar.innerHTML = `
-      <div style="position: fixed; top: 50px; right: 10px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; z-index: 10000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-family: Arial, sans-serif; max-width: 200px;">
-        <div style="font-weight: bold; margin-bottom: 10px; color: #1e293b;">Admin Verktyg</div>
-        <button onclick="InlineEditor.showNewPostModal()" style="width: 100%; background: #2563eb; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 5px; font-size: 13px;">📝 Nytt inlägg</button>
-        <button onclick="InlineEditor.savePage()" style="width: 100%; background: #10b981; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 5px; font-size: 13px;">💾 Spara ändringar</button>
-        <button onclick="InlineEditor.logout()" style="width: 100%; background: #ef4444; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer; font-size: 13px;">🚪 Logga ut</button>
-        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b;">
-          <div>✏️ Klicka på text för att redigera</div>
-          <div>🖼️ Högerklicka på bilder</div>
+      <div style="position: fixed; top: ${isMobile ? '45px' : '50px'}; right: ${isMobile ? '5px' : '10px'}; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: ${isMobile ? '8px' : '10px'}; z-index: 10000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-family: Arial, sans-serif; max-width: ${isMobile ? '160px' : '200px'};">
+        <div style="font-weight: bold; margin-bottom: 10px; color: #1e293b; font-size: ${isMobile ? '12px' : '14px'};">Admin Verktyg</div>
+        <button onclick="InlineEditor.showNewPostModal()" style="width: 100%; background: #2563eb; color: white; padding: ${isMobile ? '6px' : '8px'}; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 5px; font-size: ${isMobile ? '11px' : '13px'}; touch-action: manipulation;">📝 Nytt inlägg</button>
+        <button onclick="InlineEditor.savePage()" style="width: 100%; background: #10b981; color: white; padding: ${isMobile ? '6px' : '8px'}; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 5px; font-size: ${isMobile ? '11px' : '13px'}; touch-action: manipulation;">💾 Spara ändringar</button>
+        <button onclick="InlineEditor.logout()" style="width: 100%; background: #ef4444; color: white; padding: ${isMobile ? '6px' : '8px'}; border: none; border-radius: 5px; cursor: pointer; font-size: ${isMobile ? '11px' : '13px'}; touch-action: manipulation;">🚪 Logga ut</button>
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: ${isMobile ? '10px' : '12px'}; color: #64748b;">
+          <div>✏️ ${isMobile ? 'Tryck' : 'Klicka'} på text</div>
+          <div>🖼️ ${isMobile ? 'Håll' : 'Högerklicka'} på bilder</div>
         </div>
       </div>
     `;
@@ -400,9 +411,28 @@ const InlineEditor = {
         img.style.outline = '1px dashed transparent';
       });
       
+      // Desktop: högerklick
       img.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         this.showImageMenu(img, e.clientX, e.clientY);
+      });
+      
+      // Mobil: långt tryck (touch and hold)
+      let touchTimer;
+      img.addEventListener('touchstart', (e) => {
+        touchTimer = setTimeout(() => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          this.showImageMenu(img, touch.clientX, touch.clientY);
+        }, 500); // 500ms långt tryck
+      });
+      
+      img.addEventListener('touchend', () => {
+        clearTimeout(touchTimer);
+      });
+      
+      img.addEventListener('touchmove', () => {
+        clearTimeout(touchTimer);
       });
     });
   },
