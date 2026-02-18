@@ -7434,10 +7434,32 @@
         }
         
         // ======================================
+        // GLOBAL DROPDOWN TOGGLE FUNCTION
+        // ======================================
+        function toggleDropdown(element) {
+            element.classList.toggle('active');
+            const parent = element.closest('.nav-item.dropdown') || element.closest('.dropdown-submenu');
+            const content = parent.querySelector('.dropdown-content') || parent.querySelector('.dropdown-submenu-content');
+            if (content) {
+                content.classList.toggle('show');
+            }
+            console.log('Dropdown toggled');
+        }
+        
+        // ======================================
         // MODERN JAVASCRIPT ENHANCEMENTS
         // ======================================
 
         document.addEventListener('DOMContentLoaded', function () {
+            
+            // Add onclick to all dropdown toggles for mobile
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleDropdown(this);
+                };
+            });
 
             // ======================================
             // ENHANCED NAVIGATION
