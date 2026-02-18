@@ -474,13 +474,20 @@
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
-            padding: 5px;
+            padding: 15px;
             border-radius: 5px;
             transition: background 0.3s;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
+            position: relative;
+            z-index: 1100;
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hamburger:hover {
