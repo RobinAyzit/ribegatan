@@ -7747,7 +7747,8 @@
                                 searchInput.value = '';
                                 searchInput.blur(); // Close mobile keyboard
 
-                                const navbarHeight = navbar.offsetHeight;
+                                const navbar = document.querySelector('.navbar');
+                                const navbarHeight = navbar ? navbar.offsetHeight : 80;
                                 const targetPosition = targetSection.offsetTop - navbarHeight - 20;
 
                                 window.scrollTo({
