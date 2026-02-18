@@ -116,17 +116,6 @@ console.log('search.js loaded');
             performSearch(e.target.value);
         }, 300);
     });
-    
-    // Search button click handler (for mobile)
-    const searchButton = document.getElementById('searchButton');
-    if (searchButton) {
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value;
-            if (query && query.length >= 2) {
-                performSearch(query);
-            }
-        });
-    }
 
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.search-container')) {

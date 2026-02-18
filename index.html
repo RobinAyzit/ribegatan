@@ -1760,27 +1760,6 @@
             width: 250px;
         }
 
-        /* Search button - hidden on desktop, visible on mobile */
-        .search-button {
-            display: none;
-            background: var(--primary-color);
-            border: none;
-            color: var(--white);
-            padding: 0.6rem 1rem;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            margin-left: 0.5rem;
-            transition: all var(--transition-base);
-            -webkit-tap-highlight-color: transparent;
-            font-size: 1.1rem;
-            box-shadow: var(--shadow-md);
-        }
-
-        .search-button:active {
-            background: var(--primary-dark);
-            transform: scale(0.95);
-        }
-
         /* Search Results Panel */
         .search-results {
             position: absolute;
@@ -1920,14 +1899,6 @@
             .search-box i {
                 font-size: 1.1rem;
                 color: var(--primary-color);
-            }
-            
-            /* Show search button on mobile */
-            .search-button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
             }
 
             .search-input {
@@ -2307,9 +2278,6 @@
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" class="search-input" id="searchInput" placeholder="Sök på hemsidan...">
-                    <button class="search-button" id="searchButton" aria-label="Sök">
-                        <i class="fas fa-search"></i>
-                    </button>
                 </div>
                 <div class="search-results" id="searchResults"></div>
             </div>
