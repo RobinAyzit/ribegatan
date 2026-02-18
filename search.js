@@ -22,12 +22,12 @@ console.log('search.js loaded');
             const sectionId = section.id;
             const heading = section.querySelector('h2, h3, h1');
 
-            if (heading && sectionId) {
-                const title = heading.textContent.trim();
-                // Get ALL text content from the section, not just specific elements
+            if (sectionId) {
+                const title = heading ? heading.textContent.trim() : sectionId;
+                // Get ALL text content from the section
                 const content = section.textContent.trim().replace(/\s+/g, ' ');
 
-                if (title) {
+                if (title && content) {
                     searchIndex.push({
                         id: sectionId,
                         title: title,
