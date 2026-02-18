@@ -21,14 +21,11 @@ console.log('search.js loaded');
         sections.forEach(section => {
             const sectionId = section.id;
             const heading = section.querySelector('h2, h3, h1');
-            const paragraphs = section.querySelectorAll('p, li, h4, .uniform-card, .menu-item, div, span');
 
             if (heading && sectionId) {
                 const title = heading.textContent.trim();
-                const content = Array.from(paragraphs)
-                    .map(p => p.textContent.trim())
-                    .join(' ')
-                    .substring(0, 1000); // Increased from 500 to 1000
+                // Get ALL text content from the section, not just specific elements
+                const content = section.textContent.trim().replace(/\s+/g, ' ');
 
                 if (title) {
                     searchIndex.push({
@@ -119,6 +116,17 @@ console.log('search.js loaded');
             performSearch(e.target.value);
         }, 300);
     });
+    
+    // Search button click handler (for mobile)
+    const searchButton = document.getElementById('searchButton');
+    if (searchButton) {
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value;
+            if (query && query.length >= 2) {
+                performSearch(query);
+            }
+        });
+    }
 
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.search-container')) {
