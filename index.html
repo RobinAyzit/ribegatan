@@ -7560,21 +7560,28 @@
             const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
             dropdownToggles.forEach(toggle => {
-                toggle.addEventListener('click', function (e) {
+                const toggleDropdown = function (e) {
                     e.preventDefault();
                     e.stopPropagation();
 
                     // Toggle arrow rotation
-                    this.classList.toggle('active');
+                    toggle.classList.toggle('active');
 
                     // Find content to toggle
-                    const parent = this.closest('.nav-item.dropdown') || this.closest('.dropdown-submenu');
+                    const parent = toggle.closest('.nav-item.dropdown') || toggle.closest('.dropdown-submenu');
                     const content = parent.querySelector('.dropdown-content') || parent.querySelector('.dropdown-submenu-content');
 
                     if (content) {
                         content.classList.toggle('show');
                     }
-                });
+                };
+                
+                // Add both click and touch events
+                toggle.addEventListener('click', toggleDropdown);
+                toggle.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    toggleDropdown(e);
+                }, { passive: false });
             });
 
             // ======================================
