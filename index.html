@@ -7656,11 +7656,18 @@
             // ======================================
             // SEARCH FUNCTIONALITY
             // ======================================
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
-            let searchTimeout = null;
+            (function initSearch() {
+                const searchInput = document.getElementById('searchInput');
+                const searchResults = document.getElementById('searchResults');
+                
+                if (!searchInput || !searchResults) {
+                    console.error('Search elements not found!');
+                    return;
+                }
+                
+                console.log('Search initialized successfully');
+                let searchTimeout = null;
 
-            if (searchInput && searchResults) {
                 // Build searchable content index from page
                 function buildSearchIndex() {
                     const sections = document.querySelectorAll('section');
@@ -7688,6 +7695,7 @@
                         }
                     });
 
+                    console.log('Search index built:', searchIndex.length, 'items');
                     return searchIndex;
                 }
 
@@ -7707,6 +7715,7 @@
                             item.content.toLowerCase().includes(lowerQuery);
                     });
 
+                    console.log('Search results:', results.length);
                     displaySearchResults(results, query);
                 }
 
@@ -7766,6 +7775,7 @@
 
                 // Search input event listener
                 searchInput.addEventListener('input', (e) => {
+                    console.log('Search input:', e.target.value);
                     clearTimeout(searchTimeout);
                     searchTimeout = setTimeout(() => {
                         performSearch(e.target.value);
@@ -7794,7 +7804,7 @@
                         }
                     }
                 });
-            }
+            })();
 
 
             // ======================================
