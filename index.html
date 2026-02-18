@@ -1878,16 +1878,34 @@
                 /* Place search at the bottom of the header */
                 box-sizing: border-box;
                 /* Ensure padding doesn't add to width */
+                position: relative;
+                z-index: 1100;
             }
 
             .search-box {
                 width: 100%;
                 box-sizing: border-box;
+                padding: 0.75rem 1rem;
+                background: var(--white);
+                border: 2px solid var(--gray-300);
+                border-radius: var(--radius-lg);
+            }
+            
+            .search-box:focus-within {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.15);
+            }
+            
+            .search-box i {
+                font-size: 1.1rem;
+                color: var(--primary-color);
             }
 
             .search-input {
                 width: 100%;
                 box-sizing: border-box;
+                font-size: 1rem;
+                padding: 0.25rem 0;
             }
 
             .search-input:focus {
@@ -1895,13 +1913,42 @@
             }
 
             .search-results {
-                width: 100%;
-                left: 0;
-                top: 100%;
-                position: absolute;
-                max-height: 300px;
-                z-index: 1002;
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+                top: calc(100% + 0.5rem);
+                position: fixed;
+                max-height: 60vh;
+                z-index: 1100;
                 box-sizing: border-box;
+                border: 2px solid var(--gray-200);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            }
+            
+            .search-result-item {
+                padding: 1.25rem;
+                font-size: 1rem;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+            
+            .search-result-item:active {
+                background: var(--gray-100);
+            }
+            
+            .search-result-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .search-result-snippet {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            
+            .search-no-results {
+                padding: 2rem 1rem;
+                font-size: 1rem;
             }
 
             .hamburger {
@@ -7689,6 +7736,7 @@
                         if (targetSection) {
                             searchResults.classList.remove('active');
                             searchInput.value = '';
+                            searchInput.blur(); // Close mobile keyboard
 
                             const navbarHeight = navbar.offsetHeight;
                             const targetPosition = targetSection.offsetTop - navbarHeight - 20;
@@ -7698,6 +7746,12 @@
                                 behavior: 'smooth'
                             });
                         }
+                    });
+                    
+                    // Add touch support for mobile
+                    resultItem.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        resultItem.click();
                     });
 
                     searchResults.appendChild(resultItem);
