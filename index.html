@@ -7656,9 +7656,17 @@
             // ======================================
             // SEARCH FUNCTIONALITY
             // ======================================
+            // SEARCH FUNCTIONALITY
+            // ======================================
             const searchInput = document.getElementById('searchInput');
             const searchResults = document.getElementById('searchResults');
             let searchTimeout = null;
+
+            // Check if search elements exist
+            if (!searchInput || !searchResults) {
+                console.error('Search elements not found:', { searchInput, searchResults });
+            } else {
+                console.log('Search elements found successfully');
 
             // Build searchable content index from page
             function buildSearchIndex() {
@@ -7687,6 +7695,7 @@
                     }
                 });
 
+                console.log('Search index built with', searchIndex.length, 'items');
                 return searchIndex;
             }
 
@@ -7694,6 +7703,7 @@
 
             // Search function
             function performSearch(query) {
+                console.log('Performing search for:', query);
                 if (!query || query.length < 2) {
                     searchResults.classList.remove('active');
                     return;
@@ -7705,6 +7715,7 @@
                         item.content.toLowerCase().includes(lowerQuery);
                 });
 
+                console.log('Search results found:', results.length);
                 displaySearchResults(results, query);
             }
 
@@ -7768,6 +7779,7 @@
 
             // Search input event listener
             searchInput.addEventListener('input', (e) => {
+                console.log('Search input:', e.target.value);
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     performSearch(e.target.value);
@@ -7789,12 +7801,16 @@
             // Handle Enter key in search input
             searchInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
+                    console.log('Enter pressed in search');
                     const firstResult = searchResults.querySelector('.search-result-item');
                     if (firstResult) {
                         firstResult.click();
                     }
                 }
             });
+            
+            console.log('Search event listeners attached');
+            } // End of search elements check
 
 
             // ======================================
