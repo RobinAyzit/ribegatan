@@ -7656,16 +7656,11 @@
             // ======================================
             // SEARCH FUNCTIONALITY
             // ======================================
-            // SEARCH FUNCTIONALITY
-            // ======================================
             const searchInput = document.getElementById('searchInput');
             const searchResults = document.getElementById('searchResults');
             let searchTimeout = null;
 
-            // Check if search elements exist
             if (searchInput && searchResults) {
-                console.log('Search elements found successfully');
-
                 // Build searchable content index from page
                 function buildSearchIndex() {
                     const sections = document.querySelectorAll('section');
@@ -7693,7 +7688,6 @@
                         }
                     });
 
-                    console.log('Search index built with', searchIndex.length, 'items');
                     return searchIndex;
                 }
 
@@ -7701,8 +7695,8 @@
 
                 // Search function
                 function performSearch(query) {
-                    console.log('Performing search for:', query);
                     if (!query || query.length < 2) {
+                        searchResults.innerHTML = '';
                         searchResults.classList.remove('active');
                         return;
                     }
@@ -7713,7 +7707,6 @@
                             item.content.toLowerCase().includes(lowerQuery);
                     });
 
-                    console.log('Search results found:', results.length);
                     displaySearchResults(results, query);
                 }
 
@@ -7744,8 +7737,9 @@
                             const targetSection = document.querySelector(`#${result.id}`);
                             if (targetSection) {
                                 searchResults.classList.remove('active');
+                                searchResults.innerHTML = '';
                                 searchInput.value = '';
-                                searchInput.blur(); // Close mobile keyboard
+                                searchInput.blur();
 
                                 const navbar = document.querySelector('.navbar');
                                 const navbarHeight = navbar ? navbar.offsetHeight : 80;
@@ -7756,12 +7750,6 @@
                                     behavior: 'smooth'
                                 });
                             }
-                        });
-                        
-                        // Add touch support for mobile
-                        resultItem.addEventListener('touchend', (e) => {
-                            e.preventDefault();
-                            resultItem.click();
                         });
 
                         searchResults.appendChild(resultItem);
@@ -7778,7 +7766,6 @@
 
                 // Search input event listener
                 searchInput.addEventListener('input', (e) => {
-                    console.log('Search input:', e.target.value);
                     clearTimeout(searchTimeout);
                     searchTimeout = setTimeout(() => {
                         performSearch(e.target.value);
@@ -7789,6 +7776,7 @@
                 document.addEventListener('click', (e) => {
                     if (!e.target.closest('.search-container')) {
                         searchResults.classList.remove('active');
+                        searchResults.innerHTML = '';
                     }
                 });
 
@@ -7800,17 +7788,12 @@
                 // Handle Enter key in search input
                 searchInput.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
-                        console.log('Enter pressed in search');
                         const firstResult = searchResults.querySelector('.search-result-item');
                         if (firstResult) {
                             firstResult.click();
                         }
                     }
                 });
-                
-                console.log('Search event listeners attached');
-            } else {
-                console.error('Search elements not found:', { searchInput, searchResults });
             }
 
 
