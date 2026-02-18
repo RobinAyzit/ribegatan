@@ -7422,38 +7422,38 @@
             const navMenu = document.querySelector('.nav-menu');
             const navLinks = document.querySelectorAll('.nav-link');
 
-            // Mobile menu toggle with enhanced animations and touch support
+            // Mobile menu toggle - simplified for better mobile support
             if (hamburger && navMenu) {
-                // Add touch support
-                hamburger.addEventListener('click', function (e) {
+                // Single event handler that works for both click and touch
+                const toggleMenu = function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    this.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-
-                    // Accessibility
-                    const isExpanded = this.classList.contains('active');
-                    this.setAttribute('aria-expanded', isExpanded);
+                    const isActive = hamburger.classList.contains('active');
                     
-                    console.log('Hamburger clicked, menu active:', isExpanded);
-                });
+                    if (isActive) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    } else {
+                        hamburger.classList.add('active');
+                        navMenu.classList.add('active');
+                        hamburger.setAttribute('aria-expanded', 'true');
+                    }
+                    
+                    console.log('Menu toggled, now active:', !isActive);
+                };
                 
-                // Touch support for mobile
-                hamburger.addEventListener('touchend', function (e) {
+                // Use both click and touchstart for maximum compatibility
+                hamburger.addEventListener('click', toggleMenu);
+                hamburger.addEventListener('touchstart', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
-                    
-                    this.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-
-                    const isExpanded = this.classList.contains('active');
-                    this.setAttribute('aria-expanded', isExpanded);
-                    
-                    console.log('Hamburger touched, menu active:', isExpanded);
-                });
+                    toggleMenu(e);
+                }, { passive: false });
+                
+                console.log('Hamburger menu initialized successfully');
             } else {
-                console.error('Hamburger or navMenu not found!');
+                console.error('Hamburger or navMenu not found!', { hamburger, navMenu });
             }
 
             // Enhanced dropdown functionality (Desktop Hover)
