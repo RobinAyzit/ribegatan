@@ -477,10 +477,18 @@
             padding: 5px;
             border-radius: 5px;
             transition: background 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .hamburger:hover {
             background: rgba(44, 85, 48, 0.1);
+        }
+        
+        .hamburger:active {
+            background: rgba(44, 85, 48, 0.2);
         }
 
         .bar {
@@ -7391,8 +7399,7 @@
                     <h4 style="">Kontaktinfo</h4>
                     <p style=""><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ribegatan 77, 164 45 Kista</p>
                     <p style=""><i class="fas fa-envelope" aria-hidden="true"></i> styrelsen@ribegatan.se</p>
-                    <p style="margin-top: 20px; font-size: 0.85rem; color: #94a3b8; font-style: italic;">The website was created by bynrnworld@gmail.com</p>
-                    <p style="margin-top: 5px; font-size: 0.85rem; color: #64748b; font-weight: 500;">Created by © 2024 nRn World</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #94a3b8;">The website was created by bynrnworld@gmail.com</p>
                 </div>
             </div>
             <div class="footer-bottom" style="">
@@ -7415,15 +7422,39 @@
             const navMenu = document.querySelector('.nav-menu');
             const navLinks = document.querySelectorAll('.nav-link');
 
-            // Mobile menu toggle with enhanced animations
-            hamburger.addEventListener('click', function () {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('active');
+            // Mobile menu toggle with enhanced animations and touch support
+            if (hamburger && navMenu) {
+                // Add touch support
+                hamburger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
 
-                // Accessibility
-                const isExpanded = this.classList.contains('active');
-                this.setAttribute('aria-expanded', isExpanded);
-            });
+                    // Accessibility
+                    const isExpanded = this.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                    
+                    console.log('Hamburger clicked, menu active:', isExpanded);
+                });
+                
+                // Touch support for mobile
+                hamburger.addEventListener('touchend', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+
+                    const isExpanded = this.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                    
+                    console.log('Hamburger touched, menu active:', isExpanded);
+                });
+            } else {
+                console.error('Hamburger or navMenu not found!');
+            }
 
             // Enhanced dropdown functionality (Desktop Hover)
             const dropdowns = document.querySelectorAll('.dropdown');
@@ -8297,5 +8328,10 @@
         window.addEventListener('unhandledrejection', function (e) {
             console.error('Unhandled promise rejection:', e.reason);
         });
+
+    </script>
+    
+    <!-- Inline Editor för Admin -->
+    <script src="inline-editor.js"></script>
 
 </body></html>
