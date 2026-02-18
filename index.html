@@ -1766,12 +1766,14 @@
             background: var(--primary-color);
             border: none;
             color: var(--white);
-            padding: 0.5rem 0.75rem;
+            padding: 0.6rem 1rem;
             border-radius: var(--radius-md);
             cursor: pointer;
             margin-left: 0.5rem;
             transition: all var(--transition-base);
             -webkit-tap-highlight-color: transparent;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-md);
         }
 
         .search-button:active {
@@ -2306,7 +2308,7 @@
                     <i class="fas fa-search"></i>
                     <input type="text" class="search-input" id="searchInput" placeholder="Sök på hemsidan...">
                     <button class="search-button" id="searchButton" aria-label="Sök">
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-search"></i>
                     </button>
                 </div>
                 <div class="search-results" id="searchResults"></div>
