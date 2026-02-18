@@ -21,14 +21,14 @@ console.log('search.js loaded');
         sections.forEach(section => {
             const sectionId = section.id;
             const heading = section.querySelector('h2, h3, h1');
-            const paragraphs = section.querySelectorAll('p, li, h4');
+            const paragraphs = section.querySelectorAll('p, li, h4, .uniform-card, .menu-item, div, span');
 
             if (heading && sectionId) {
                 const title = heading.textContent.trim();
                 const content = Array.from(paragraphs)
                     .map(p => p.textContent.trim())
                     .join(' ')
-                    .substring(0, 500);
+                    .substring(0, 1000); // Increased from 500 to 1000
 
                 if (title) {
                     searchIndex.push({
