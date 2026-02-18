@@ -2335,7 +2335,7 @@
                     <a href="#links" class="nav-link" style="">Länkar</a>
                 </li>
             </ul>
-            <div class="hamburger" aria-label="Mobilt navigeringsmeny">
+            <div class="hamburger" aria-label="Mobilt navigeringsmeny" onclick="toggleMobileMenu()">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -7415,6 +7415,24 @@
     </footer>
 
     <script>
+        // ======================================
+        // GLOBAL MOBILE MENU TOGGLE FUNCTION
+        // ======================================
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger && navMenu) {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                const isActive = hamburger.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', isActive);
+                
+                console.log('Mobile menu toggled:', isActive);
+            }
+        }
+        
         // ======================================
         // MODERN JAVASCRIPT ENHANCEMENTS
         // ======================================
