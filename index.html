@@ -2335,7 +2335,7 @@
                     <a href="#links" class="nav-link" style="">Länkar</a>
                 </li>
             </ul>
-            <div class="hamburger" aria-label="Mobilt navigeringsmeny" onclick="toggleMobileMenu()">
+            <div class="hamburger" aria-label="Mobilt navigeringsmeny" onclick="(function(){const h=document.querySelector('.hamburger');const m=document.querySelector('.nav-menu');h.classList.toggle('active');m.classList.toggle('active');h.setAttribute('aria-expanded',h.classList.contains('active'));})()">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
